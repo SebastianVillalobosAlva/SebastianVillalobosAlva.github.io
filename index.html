@@ -10,16 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #fbfaf8;
-    --bg-alt: #f3f1ec;
-    --surface: #ffffff;
-    --ink: #1a1a1a;
-    --ink-soft: #4a4a48;
-    --ink-faint: #87847d;
-    --line: #e6e3dc;
-    --accent: #6b4ee6;
-    --accent-soft: #efeafe;
-    --accent-ink: #4a32b8;
+    --bg: #f7f6e3;
+    --bg-alt: #ecead2;
+    --surface: #fffef5;
+    --ink: #2b3a26;
+    --ink-soft: #4c5a43;
+    --ink-faint: #7d8770;
+    --line: #ddd9bf;
+    --accent: #587350;
+    --accent-soft: #dfe7d3;
+    --accent-ink: #34492e;
     --radius: 14px;
     --maxw: 980px;
   }
@@ -35,21 +35,50 @@
   }
   a { color: var(--accent-ink); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
 
-  /* Nav */
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(251,250,248,0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+  /* Layout: fixed sidebar + offset content */
+  .sidebar {
+    position: fixed; top: 0; left: 0; width: 220px; height: 100vh;
+    background: var(--bg-alt); border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; padding: 36px 24px; z-index: 50;
   }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { font-weight: 700; letter-spacing: -0.02em; font-size: 1.02rem; }
-  .navlinks { display: flex; gap: 26px; }
-  .navlinks a { color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; }
-  .navlinks a:hover { color: var(--accent-ink); text-decoration: none; }
-  @media (max-width: 640px) { .navlinks { display: none; } }
+  .side-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); }
+  .side-tag {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent-ink); margin-top: 10px;
+  }
+  .side-nav { display: flex; flex-direction: column; gap: 2px; margin-top: 44px; }
+  .side-nav a {
+    display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 9px;
+    color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; transition: all 0.15s;
+  }
+  .side-nav a::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--line); transition: all 0.15s;
+  }
+  .side-nav a:hover { background: var(--surface); color: var(--accent-ink); text-decoration: none; }
+  .side-nav a.active { color: var(--accent-ink); font-weight: 600; background: var(--surface); }
+  .side-nav a.active::before { background: var(--accent); transform: scale(1.5); }
+  .side-bottom { margin-top: auto; display: flex; flex-wrap: wrap; gap: 14px; padding-top: 24px; }
+  .side-bottom a { color: var(--ink-faint); font-size: 0.84rem; font-weight: 500; }
+  .side-bottom a:hover { color: var(--accent-ink); text-decoration: none; }
+
+  .content { margin-left: 220px; }
+
+  @media (max-width: 560px) {
+    .sidebar {
+      position: sticky; width: auto; height: auto; flex-direction: column;
+      padding: 20px 24px; border-right: none; border-bottom: 1px solid var(--line);
+    }
+    .side-nav { flex-direction: row; flex-wrap: wrap; gap: 4px; margin-top: 18px; }
+    .side-nav a::before { display: none; }
+    .side-nav a { padding: 7px 11px; }
+    .side-nav a.active::before { display: none; }
+    .side-bottom { margin-top: 18px; padding-top: 0; }
+    .content { margin-left: 0; }
+    .wrap { padding: 0 24px; }
+  }
 
   /* Hero */
   header.hero { padding: 84px 0 64px; }
@@ -88,11 +117,11 @@
 
   /* Thesis callout */
   .thesis {
-    background: linear-gradient(160deg, #2a2150, #1c1738);
-    color: #ece9fb; border-radius: var(--radius); padding: 38px 36px;
+    background: linear-gradient(160deg, #3d5436, #24371f);
+    color: #eef1e4; border-radius: var(--radius); padding: 38px 36px;
   }
-  .thesis .eyebrow { background: rgba(255,255,255,0.12); color: #cfc6ff; }
-  .thesis p { font-family: 'Newsreader', serif; font-size: 1.22rem; line-height: 1.55; margin: 0 0 16px; color: #e9e6fb; }
+  .thesis .eyebrow { background: rgba(255,255,255,0.14); color: #cdd9bd; }
+  .thesis p { font-family: 'Newsreader', serif; font-size: 1.22rem; line-height: 1.55; margin: 0 0 16px; color: #e7ecdb; }
   .thesis p:last-child { margin-bottom: 0; }
   .thesis strong { color: #fff; font-weight: 600; }
 
@@ -105,6 +134,10 @@
   .project h3 { font-size: 1.32rem; margin: 0 0 4px; letter-spacing: -0.01em; }
   .project .tagline { color: var(--ink-faint); font-size: 0.9rem; margin: 0 0 16px; font-weight: 500; }
   .project p { color: var(--ink-soft); margin: 0 0 16px; }
+  .findings { margin: 0 0 16px; padding-left: 20px; color: var(--ink-soft); }
+  .findings li { margin-bottom: 10px; padding-left: 4px; }
+  .findings li::marker { color: var(--accent); }
+  .findings strong { color: var(--ink); }
   .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
   .tag {
     font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-ink);
@@ -112,12 +145,13 @@
   }
   .project-links { display: flex; gap: 18px; font-size: 0.88rem; font-weight: 600; }
   .codeblock {
-    background: #1c1b22; color: #d6d3e0; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+    background: #24371f; color: #dfe6d2; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
     font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; margin: 0 0 18px;
+    white-space: pre;
   }
-  .codeblock .c { color: #7d7a8c; }
-  .codeblock .k { color: #c9a8ff; }
-  .codeblock .s { color: #9ce0a0; }
+  .codeblock .c { color: #8a9a7a; }
+  .codeblock .k { color: #bcd1a3; }
+  .codeblock .s { color: #d6c98a; }
 
   /* CV */
   .cv-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
@@ -154,22 +188,31 @@
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <span class="brand">Sebastian Villalobos</span>
-    <div class="navlinks">
-      <a href="#research">Research</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </div>
+<aside class="sidebar">
+  <div>
+    <div class="side-name">Sebastian<br />Villalobos</div>
+    <div class="side-tag">AI Safety · Interpretability · Data Science</div>
   </div>
-</nav>
+  <nav class="side-nav">
+    <a href="#top">Intro</a>
+    <a href="#research">Research</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#publication">Publication</a>
+    <a href="#skills">Skills</a>
+  </nav>
+  <div class="side-bottom">
+    <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
+    <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</aside>
 
-<header class="hero">
+<main class="content">
+
+<header class="hero" id="top">
   <div class="wrap">
-    <span class="eyebrow">AI Safety · Mechanistic Interpretability</span>
+    <span class="eyebrow">AI Safety · Mechanistic Interpretability · Data Science</span>
     <h1>Sebastian Villalobos</h1>
     <p class="lede">
       Data Science M.S. candidate at Georgetown building tools to look <em>inside</em> neural
@@ -180,11 +223,13 @@
       <span>📍 Washington, DC</span>
       <span>🎓 Georgetown University · M.S. Data Science</span>
       <span>✉️ <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a></span>
+      <span>📞 <a href="tel:+12024929146">+1 (202) 492 9146</a></span>
     </div>
     <div class="cta">
       <a class="btn primary" href="#projects">View projects</a>
       <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn" href="#experience">Résumé</a>
+      <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
     </div>
   </div>
 </header>
@@ -193,7 +238,6 @@
 <section id="research">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">01</span>
       <div>
         <h2>Research focus</h2>
         <p class="sec-sub">The Mechanistic Structure of Safety in Neural Networks</p>
@@ -226,7 +270,6 @@
 <section id="projects">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">02</span>
       <div>
         <h2>Projects</h2>
         <p class="sec-sub">Interpretability tooling and philosophical steering for safety</p>
@@ -250,16 +293,25 @@
       </p>
       <div class="codeblock"><span class="k">from</span> modellens <span class="k">import</span> ModelLens
 
-lens = ModelLens(gpt2_model)        <span class="c"># auto-detects: transformer</span>
+lens = ModelLens(model)             <span class="c"># auto-detects the architecture</span>
 results = lens.layer_probe(inputs)  <span class="c"># generalized logit lens</span>
 attn    = lens.attention_map(inputs)
 effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal intervention</span></div>
       <p>
-        Analyses include layer probing (generalized logit lens), attention maps, activation
+        The analysis suite covers layer probing (generalized logit lens), attention maps, activation
         patching, residual-stream contribution analysis, embedding inspection, CNN filter &amp;
-        feature-map evolution, and LSTM/GRU gate decomposition — each gated by an
-        <code>AnalysisCapability</code> the adapter declares. Hook lifecycles are managed by context
-        managers so activations are always cleaned up, even on exceptions.
+        feature-map evolution, LSTM/GRU gate decomposition, and automated circuit discovery — each
+        gated by an <code>AnalysisCapability</code> the adapter declares. Hook lifecycles are managed
+        by context managers, so captured activations are always released even when an analysis throws.
+      </p>
+      <p>
+        <strong>Flagship result.</strong> I used ModelLens to run a behavior-controlled circuit
+        comparison on a 3B model: two steering methods (activation addition vs. LoRA fine-tuning)
+        produce the <em>same</em> Stoic-flavored output through <em>different</em> circuits —
+        activation steering concentrates in a single L8→L9–13 feed-forward pathway (layer-12 MLP is
+        the causal bottleneck), while LoRA distributes its effect across many layers and uses
+        attention as well as MLPs. That "same behavior, different mechanism" finding is exactly the
+        kind of question interpretability tooling exists to answer.
       </p>
       <div class="tags">
         <span class="tag">PyTorch</span>
@@ -267,6 +319,7 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
         <span class="tag">activation patching</span>
         <span class="tag">logit lens</span>
         <span class="tag">residual stream</span>
+        <span class="tag">circuit discovery</span>
         <span class="tag">adapter pattern</span>
       </div>
       <div class="project-links">
@@ -283,24 +336,46 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
         </div>
       </div>
       <p>
-        Steers Llama-3.2-1B toward Stoic philosophy — Epictetus, Seneca, Marcus Aurelius — using
-        <strong>Contrastive Activation Addition (CAA)</strong> and LoRA fine-tuning. Steering vectors
-        are extracted from contrasting Stoic vs. non-Stoic text pairs and applied at inference time.
+        Steers Llama-3.2 (1B → 3B) toward Stoic philosophy — Epictetus, Seneca, Marcus Aurelius —
+        using <strong>Contrastive Activation Addition (CAA)</strong> and <strong>LoRA</strong>
+        fine-tuning. The full pipeline is built from scratch: scraping the source texts, generating
+        contrastive Stoic/neutral pairs (100+ per philosopher) via the Claude API, extracting
+        steering vectors, and scoring outputs with an LLM-as-judge across layer × coefficient sweeps.
       </p>
       <p>
-        The safety angle goes beyond making a model "sound Stoic": principles like the
-        <em>dichotomy of control</em> (act only on what's within scope), <em>temperance</em>
-        (proportional rather than extreme responses), and <em>virtue ethics</em> (right action from
-        the right disposition) become a constraint framework — then I use ModelLens to check whether
-        the resulting safety operates through the <strong>same circuits as RLHF refusal, or a
-        different mechanism</strong>.
+        The motivating idea is <em>philosophy as mechanistic safety</em> — using Stoic principles
+        (the dichotomy of control, temperance, virtue ethics) as a constraint framework rather than
+        an RLHF-style reward signal. But the work's real value is its <strong>rigor about what does
+        and doesn't hold</strong>:
+      </p>
+      <ul class="findings">
+        <li><strong>A register direction, not a decision direction.</strong> Three independent
+          instruments converge on the same boundary: steering robustly shifts <em>style</em>
+          (+1.0 to +1.6 by LLM-judge), weakly and inconsistently shifts <em>reasoning</em> in prose,
+          and — on a judge-free, generation-free forced-choice dilemma probe — does <em>not</em> move
+          the model's actual <em>choice</em> at any strength, right up to the edge of incoherence. It
+          changes how the model talks, not what it decides.</li>
+        <li><strong>CAA vs. LoRA, mechanistically.</strong> Both produce Stoic-flavored text, but
+          ModelLens shows they do so through <em>different circuits</em> — the publishable anchor, and
+          the basis for the open thesis test: does LoRA move decisions where activation steering
+          can't?</li>
+        <li><strong>Built to catch its own artifacts.</strong> Seed-averaged, decoding-matched,
+          label-order-balanced probes; capacity isolated as the bottleneck (effects strengthen from
+          1B to 3B); and an early "all philosophers converge on layer 8" result traced to an
+          extraction bug and explicitly superseded rather than reported.</li>
+      </ul>
+      <p>
+        The result is a clean characterization of what activation steering can and can't do — a
+        more defensible claim than any single positive number, and a sharper question for the next
+        experiment than the project started with.
       </p>
       <div class="tags">
-        <span class="tag">Llama-3.2-1B</span>
+        <span class="tag">Llama-3.2 1B/3B</span>
         <span class="tag">CAA</span>
         <span class="tag">LoRA</span>
         <span class="tag">steering vectors</span>
-        <span class="tag">alignment</span>
+        <span class="tag">LLM-as-judge</span>
+        <span class="tag">mechanistic eval</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/SebastianVillalobosAlva/Stoic-LLM-Steering" target="_blank" rel="noopener">Repository ↗</a>
@@ -336,7 +411,6 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
 <section id="experience">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">03</span>
       <div>
         <h2>Experience &amp; education</h2>
         <p class="sec-sub">LLM evaluation, RLHF alignment, and end-to-end ML systems</p>
@@ -418,7 +492,6 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
 <section id="publication">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">04</span>
       <div><h2>Publication</h2></div>
     </div>
     <div class="pub">
@@ -432,7 +505,6 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
 <section id="skills">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">05</span>
       <div><h2>Skills &amp; tooling</h2></div>
     </div>
     <div class="skills-grid">
@@ -483,18 +555,37 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
   </div>
 </section>
 
-<!-- CONTACT / FOOTER -->
-<footer id="contact">
-  <div class="wrap">
-    <div class="links">
-      <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
-      <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/sebastian-villalobos" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="tel:+12024929146">+1 (202) 492 9146</a>
-    </div>
-    <div class="fine">Washington, DC · Built and deployed with GitHub Pages.</div>
-  </div>
-</footer>
+</main>
+
+<script>
+  // Sidebar acts as a page switcher: show only the selected section.
+  const navLinks = Array.from(document.querySelectorAll('.side-nav a'));
+  const pageIds = navLinks.map(l => l.getAttribute('href').slice(1));
+  const pages = pageIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  function showPage(id) {
+    if (!pageIds.includes(id)) id = pageIds[0];
+    pages.forEach(p => { p.style.display = (p.id === id) ? '' : 'none'; });
+    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    window.scrollTo(0, 0);
+  }
+
+  // Any in-page anchor (sidebar links, hero CTA buttons) switches pages.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (!pageIds.includes(id)) return;
+    e.preventDefault();
+    history.replaceState(null, '', '#' + id);
+    showPage(id);
+  });
+
+  // Initial page from the URL hash, defaulting to the first link (Intro).
+  showPage((location.hash || '').slice(1) || pageIds[0]);
+</script>
 
 </body>
 </html>
