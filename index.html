@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sebastian Villalobos — Mechanistic Interpretability &amp; AI Safety</title>
+<meta name="description" content="Sebastian Villalobos — Data Science M.S. at Georgetown. Building interpretability tools and philosophical steering methods toward mechanistically grounded AI safety." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --bg-alt: #f3f1ec;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a48;
+    --ink-faint: #87847d;
+    --line: #e6e3dc;
+    --accent: #6b4ee6;
+    --accent-soft: #efeafe;
+    --accent-ink: #4a32b8;
+    --radius: 14px;
+    --maxw: 980px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(251,250,248,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; letter-spacing: -0.02em; font-size: 1.02rem; }
+  .navlinks { display: flex; gap: 26px; }
+  .navlinks a { color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; }
+  .navlinks a:hover { color: var(--accent-ink); text-decoration: none; }
+  @media (max-width: 640px) { .navlinks { display: none; } }
+
+  /* Hero */
+  header.hero { padding: 84px 0 64px; }
+  .eyebrow {
+    display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-ink); background: var(--accent-soft);
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -0.03em;
+    margin: 0 0 18px; font-weight: 800;
+  }
+  .lede {
+    font-family: 'Newsreader', Georgia, serif; font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+    color: var(--ink-soft); max-width: 680px; margin: 0 0 28px; line-height: 1.5;
+  }
+  .lede em { color: var(--ink); font-style: italic; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.92rem; color: var(--ink-faint); margin-bottom: 26px; }
+  .meta span { display: inline-flex; align-items: center; gap: 7px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px;
+    font-size: 0.9rem; font-weight: 600; border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); transition: all 0.15s;
+  }
+  .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-ink); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary:hover { background: var(--accent-ink); color: #fff; }
+
+  /* Sections */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px; }
+  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--accent-ink); font-weight: 500; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); letter-spacing: -0.02em; margin: 0; font-weight: 700; }
+  .sec-sub { color: var(--ink-faint); font-size: 0.95rem; margin: 6px 0 0; }
+
+  /* Thesis callout */
+  .thesis {
+    background: linear-gradient(160deg, #2a2150, #1c1738);
+    color: #ece9fb; border-radius: var(--radius); padding: 38px 36px;
+  }
+  .thesis .eyebrow { background: rgba(255,255,255,0.12); color: #cfc6ff; }
+  .thesis p { font-family: 'Newsreader', serif; font-size: 1.22rem; line-height: 1.55; margin: 0 0 16px; color: #e9e6fb; }
+  .thesis p:last-child { margin-bottom: 0; }
+  .thesis strong { color: #fff; font-weight: 600; }
+
+  /* Projects */
+  .project {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 30px 32px; margin-bottom: 22px;
+  }
+  .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .project h3 { font-size: 1.32rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .project .tagline { color: var(--ink-faint); font-size: 0.9rem; margin: 0 0 16px; font-weight: 500; }
+  .project p { color: var(--ink-soft); margin: 0 0 16px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+  .tag {
+    font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-ink);
+    background: var(--accent-soft); padding: 4px 10px; border-radius: 6px;
+  }
+  .project-links { display: flex; gap: 18px; font-size: 0.88rem; font-weight: 600; }
+  .codeblock {
+    background: #1c1b22; color: #d6d3e0; border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; margin: 0 0 18px;
+  }
+  .codeblock .c { color: #7d7a8c; }
+  .codeblock .k { color: #c9a8ff; }
+  .codeblock .s { color: #9ce0a0; }
+
+  /* CV */
+  .cv-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .entry { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .entry:last-child { border-bottom: none; }
+  .entry .when { font-size: 0.85rem; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; padding-top: 3px; }
+  .entry .where { font-size: 0.85rem; color: var(--ink-faint); margin-top: 2px; }
+  .entry h3 { margin: 0 0 2px; font-size: 1.1rem; }
+  .entry .role { font-weight: 600; color: var(--ink); font-size: 0.96rem; }
+  .entry ul { margin: 10px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 0.94rem; }
+  .entry ul li { margin-bottom: 5px; }
+  .entry ul li::marker { color: var(--accent); }
+  .sub-role { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); }
+  @media (max-width: 600px) { .entry { grid-template-columns: 1fr; gap: 6px; } .entry .when { padding-top: 0; } }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
+  .skill-card h4 { margin: 0 0 12px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip { font-size: 0.82rem; background: var(--bg-alt); color: var(--ink-soft); padding: 5px 11px; border-radius: 7px; }
+
+  /* Publication */
+  .pub { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 20px 24px; }
+  .pub .title { font-family: 'Newsreader', serif; font-size: 1.1rem; font-weight: 500; color: var(--ink); }
+  .pub .venue { font-size: 0.88rem; color: var(--ink-faint); margin-top: 4px; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding: 44px 0 56px; text-align: center; }
+  footer .links { display: flex; gap: 22px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+  footer .links a { color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; }
+  footer .fine { color: var(--ink-faint); font-size: 0.82rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Sebastian Villalobos</span>
+    <div class="navlinks">
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">AI Safety · Mechanistic Interpretability</span>
+    <h1>Sebastian Villalobos</h1>
+    <p class="lede">
+      Data Science M.S. candidate at Georgetown building tools to look <em>inside</em> neural
+      networks — and asking whether 2,000 years of moral philosophy can make AI safety
+      <em>mechanistically grounded</em> rather than just behaviorally trained.
+    </p>
+    <div class="meta">
+      <span>📍 Washington, DC</span>
+      <span>🎓 Georgetown University · M.S. Data Science</span>
+      <span>✉️ <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a></span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="#experience">Résumé</a>
+    </div>
+  </div>
+</header>
+
+<!-- RESEARCH / THESIS -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <div>
+        <h2>Research focus</h2>
+        <p class="sec-sub">The Mechanistic Structure of Safety in Neural Networks</p>
+      </div>
+    </div>
+    <div class="thesis">
+      <span class="eyebrow">The thesis</span>
+      <p>
+        Today's AI safety is <strong>behavioral</strong>. RLHF and red-teaming teach a model
+        <em>what gets penalized</em> — not <strong>why</strong> something is harmful. That's why
+        safety breaks under temperature changes, adversarial prompts, and distribution shift:
+        there's no underlying principle, just pattern-matching on what got rewarded.
+      </p>
+      <p>
+        I'm investigating whether <strong>Stoic ethics</strong> — the dichotomy of control,
+        temperance, virtue — can be encoded at the <strong>representation level</strong> to
+        produce safety that is mechanistically grounded, then using interpretability to verify
+        it actually works inside the model.
+      </p>
+      <p>
+        Two projects, one bridge: a from-scratch interpretability toolkit
+        (<strong>ModelLens</strong>) and a philosophical steering pipeline
+        (<strong>Stoic&nbsp;LLM</strong>) — both built on a laptop with a 1B-parameter model.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <div>
+        <h2>Projects</h2>
+        <p class="sec-sub">Interpretability tooling and philosophical steering for safety</p>
+      </div>
+    </div>
+
+    <!-- ModelLens -->
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <h3>ModelLens</h3>
+          <p class="tagline">Architecture-agnostic neural network interpretability toolkit</p>
+        </div>
+      </div>
+      <p>
+        Point ModelLens at <em>any</em> PyTorch model — transformer, CNN, LSTM, GRU, or MLP — and
+        it auto-detects the architecture and runs the interpretability analyses that make sense for
+        it. Where TransformerLens works only on transformers, ModelLens uses an <strong>adapter
+        pattern</strong> to give a single unified API across architecture families, declaring which
+        analyses are available and raising a clear error when one doesn't apply.
+      </p>
+      <div class="codeblock"><span class="k">from</span> modellens <span class="k">import</span> ModelLens
+
+lens = ModelLens(gpt2_model)        <span class="c"># auto-detects: transformer</span>
+results = lens.layer_probe(inputs)  <span class="c"># generalized logit lens</span>
+attn    = lens.attention_map(inputs)
+effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal intervention</span></div>
+      <p>
+        Analyses include layer probing (generalized logit lens), attention maps, activation
+        patching, residual-stream contribution analysis, embedding inspection, CNN filter &amp;
+        feature-map evolution, and LSTM/GRU gate decomposition — each gated by an
+        <code>AnalysisCapability</code> the adapter declares. Hook lifecycles are managed by context
+        managers so activations are always cleaned up, even on exceptions.
+      </p>
+      <div class="tags">
+        <span class="tag">PyTorch</span>
+        <span class="tag">HuggingFace</span>
+        <span class="tag">activation patching</span>
+        <span class="tag">logit lens</span>
+        <span class="tag">residual stream</span>
+        <span class="tag">adapter pattern</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/SebastianVillalobosAlva/ModelLens" target="_blank" rel="noopener">Repository ↗</a>
+      </div>
+    </div>
+
+    <!-- Stoic LLM -->
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <h3>Stoic LLM Steering</h3>
+          <p class="tagline">Philosophical steering toward mechanistically grounded safety</p>
+        </div>
+      </div>
+      <p>
+        Steers Llama-3.2-1B toward Stoic philosophy — Epictetus, Seneca, Marcus Aurelius — using
+        <strong>Contrastive Activation Addition (CAA)</strong> and LoRA fine-tuning. Steering vectors
+        are extracted from contrasting Stoic vs. non-Stoic text pairs and applied at inference time.
+      </p>
+      <p>
+        The safety angle goes beyond making a model "sound Stoic": principles like the
+        <em>dichotomy of control</em> (act only on what's within scope), <em>temperance</em>
+        (proportional rather than extreme responses), and <em>virtue ethics</em> (right action from
+        the right disposition) become a constraint framework — then I use ModelLens to check whether
+        the resulting safety operates through the <strong>same circuits as RLHF refusal, or a
+        different mechanism</strong>.
+      </p>
+      <div class="tags">
+        <span class="tag">Llama-3.2-1B</span>
+        <span class="tag">CAA</span>
+        <span class="tag">LoRA</span>
+        <span class="tag">steering vectors</span>
+        <span class="tag">alignment</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/SebastianVillalobosAlva/Stoic-LLM-Steering" target="_blank" rel="noopener">Repository ↗</a>
+      </div>
+    </div>
+
+    <!-- Political Sentiment -->
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <h3>Political Sentiment Analysis</h3>
+          <p class="tagline">Emotion classification across Congressional speech</p>
+        </div>
+      </div>
+      <p>
+        A DistilBERT-based NLP pipeline for emotion classification across 2,000+ Congressional
+        speeches, surfacing statistically significant partisan patterns in how members of each party
+        speak.
+      </p>
+      <div class="tags">
+        <span class="tag">DistilBERT</span>
+        <span class="tag">NLP</span>
+        <span class="tag">emotion classification</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / CV -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <div>
+        <h2>Experience &amp; education</h2>
+        <p class="sec-sub">LLM evaluation, RLHF alignment, and end-to-end ML systems</p>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="entry">
+        <div>
+          <div class="when">Nov 2024 – Aug 2025</div>
+          <div class="where">Mexico City, MX</div>
+        </div>
+        <div>
+          <h3>Welo Data</h3>
+          <div class="role">Data Science &amp; Analytics Engineer</div>
+          <ul>
+            <li>Built an XGBoost model predicting task difficulty across 120k+ records, improving annotation accuracy by 10% via optimized task allocation.</li>
+            <li>Developed a GMM-based recommendation system for rater–project matching, improving annotation quality by 15% and 10% across two projects.</li>
+            <li>Automated a financial ETL pipeline in Redshift processing high-volume transactions at a 0.001% error rate, cutting reconciliation time by 70%.</li>
+            <li>Led analytics for two projects, building end-to-end ML pipelines for real-time KPI monitoring.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <div class="when">Feb 2021 – Nov 2024</div>
+          <div class="where">Mexico City, MX</div>
+        </div>
+        <div>
+          <h3>Scale AI</h3>
+          <div class="role">Data Operations Engineer · Oct 2022 – Nov 2024</div>
+          <ul>
+            <li>Developed automated evaluation frameworks for NVIDIA Nemotron's RLHF alignment using GPT-4 as a Judge-LLM and the HelpSteer2 methodology.</li>
+            <li>Built an LLM quality-linting system adopted across the GenAI organization, automating error detection and reducing manual review by 40%.</li>
+            <li>Built TypeScript–MongoDB integrations and Python pipelines automating end-to-end customer data processing.</li>
+          </ul>
+          <div class="sub-role">
+            <div class="role">Operations Data Analyst &amp; Specialist · Feb 2021 – Oct 2022</div>
+            <ul>
+              <li>Built a Logistic Regression model on 12+ months of operational data to predict batch acceptance, improving approval rates by 20%.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <div class="when">Expected May 2027</div>
+          <div class="where">Washington, DC</div>
+        </div>
+        <div>
+          <h3>Georgetown University</h3>
+          <div class="role">M.S. in Data Science &amp; Analytics · GPA 4.0 / 4.0</div>
+          <ul>
+            <li>Teaching Assistant — Database Systems and SQL.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <div class="when">B.S.</div>
+          <div class="where">Mexico City, MX</div>
+        </div>
+        <div>
+          <h3>Universidad Iberoamericana</h3>
+          <div class="role">Bachelor's in Mechatronics &amp; Production Engineering</div>
+          <ul>
+            <li>Awarded a tuition scholarship for academic merit.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section id="publication">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <div><h2>Publication</h2></div>
+    </div>
+    <div class="pub">
+      <div class="title">Protein Science Meets Artificial Intelligence: A Systematic Review</div>
+      <div class="venue">Villalobos-Alva, S., et al. (2022) · <em>Frontiers in Bioengineering and Biotechnology</em> · <a href="https://www.frontiersin.org/articles/10.3389/fbioe.2022.788300/full" target="_blank" rel="noopener">Link ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <div><h2>Skills &amp; tooling</h2></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>AI &amp; Machine Learning</h4>
+        <div class="chips">
+          <span class="chip">LLMs</span>
+          <span class="chip">RLHF</span>
+          <span class="chip">HelpSteer2</span>
+          <span class="chip">Mechanistic Interpretability</span>
+          <span class="chip">Activation Patching</span>
+          <span class="chip">Logit Lens</span>
+          <span class="chip">Residual Stream Analysis</span>
+          <span class="chip">NLP / NLU</span>
+          <span class="chip">Computer Vision</span>
+          <span class="chip">LLM Evaluation (Judge-LLM)</span>
+          <span class="chip">XGBoost</span>
+          <span class="chip">GMM</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Programming</h4>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">PyTorch</span>
+          <span class="chip">TensorFlow</span>
+          <span class="chip">Hugging Face</span>
+          <span class="chip">Pandas</span>
+          <span class="chip">NumPy</span>
+          <span class="chip">Scikit-learn</span>
+          <span class="chip">SQL</span>
+          <span class="chip">NoSQL</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">R</span>
+          <span class="chip">Git</span>
+          <span class="chip">Linux / CLI</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Languages &amp; Certifications</h4>
+        <div class="chips">
+          <span class="chip">Spanish (Native)</span>
+          <span class="chip">English (Fluent)</span>
+          <span class="chip">MIT MicroMasters — Statistics &amp; Data Science</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="links">
+      <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
+      <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/sebastian-villalobos" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="tel:+12024929146">+1 (202) 492 9146</a>
+    </div>
+    <div class="fine">Washington, DC · Built and deployed with GitHub Pages.</div>
+  </div>
+</footer>
+
+</body>
+</html>
