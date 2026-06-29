@@ -96,8 +96,9 @@
     color: var(--ink-soft); max-width: 680px; margin: 0 0 28px; line-height: 1.5;
   }
   .lede em { color: var(--ink); font-style: italic; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.92rem; color: var(--ink-faint); margin-bottom: 26px; }
-  .meta span { display: inline-flex; align-items: center; gap: 7px; }
+  .meta { padding-left: 20px; margin: 0 0 26px; font-size: 0.95rem; color: var(--ink-soft); }
+  .meta li { margin-bottom: 6px; }
+  .meta li::marker { color: var(--accent); }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px;
@@ -219,12 +220,13 @@
       networks — and asking whether 2,000 years of moral philosophy can make AI safety
       <em>mechanistically grounded</em> rather than just behaviorally trained.
     </p>
-    <div class="meta">
-      <span>📍 Washington, DC</span>
-      <span>🎓 Georgetown University · M.S. Data Science</span>
-      <span>✉️ <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a></span>
-      <span>📞 <a href="tel:+12024929146">+1 (202) 492 9146</a></span>
-    </div>
+    <ul class="meta">
+      <li>Washington, DC</li>
+      <li>Georgetown University — M.S. in Data Science &amp; Analytics</li>
+      <li>Universidad Iberoamericana — B.S. in Mechatronics &amp; Production Engineering</li>
+      <li><a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a></li>
+      <li><a href="tel:+12024929146">+1 (202) 492 9146</a></li>
+    </ul>
     <div class="cta">
       <a class="btn primary" href="#projects">View projects</a>
       <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
