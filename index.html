@@ -179,6 +179,8 @@
   @media (max-width: 600px) { .entry { grid-template-columns: 1fr; gap: 6px; } .entry .when { padding-top: 0; } }
 
   /* Skills */
+  .hero-skills { margin-top: 44px; padding-top: 34px; border-top: 1px solid var(--line); }
+  .hero-skills-title { font-size: 1.15rem; letter-spacing: -0.01em; margin: 0 0 18px; font-weight: 700; }
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
   .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
   .skill-card h4 { margin: 0 0 12px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); }
@@ -210,7 +212,6 @@
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
     <a href="#publication">Publication</a>
-    <a href="#skills">Skills</a>
   </nav>
   <div class="side-bottom">
     <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
@@ -242,6 +243,55 @@
       <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">CV ↗</a>
+    </div>
+
+    <div class="hero-skills">
+      <h2 class="hero-skills-title">Skills &amp; tooling</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>AI &amp; Machine Learning</h4>
+          <div class="chips">
+            <span class="chip">LLMs</span>
+            <span class="chip">RLHF</span>
+            <span class="chip">HelpSteer2</span>
+            <span class="chip">Mechanistic Interpretability</span>
+            <span class="chip">Activation Patching</span>
+            <span class="chip">Logit Lens</span>
+            <span class="chip">Residual Stream Analysis</span>
+            <span class="chip">NLP / NLU</span>
+            <span class="chip">Computer Vision</span>
+            <span class="chip">LLM Evaluation (Judge-LLM)</span>
+            <span class="chip">XGBoost</span>
+            <span class="chip">GMM</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Programming</h4>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">PyTorch</span>
+            <span class="chip">TensorFlow</span>
+            <span class="chip">Hugging Face</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">NumPy</span>
+            <span class="chip">Scikit-learn</span>
+            <span class="chip">SQL</span>
+            <span class="chip">NoSQL</span>
+            <span class="chip">TypeScript</span>
+            <span class="chip">R</span>
+            <span class="chip">Git</span>
+            <span class="chip">Linux / CLI</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Languages &amp; Certifications</h4>
+          <div class="chips">
+            <span class="chip">Spanish (Native)</span>
+            <span class="chip">English (Fluent)</span>
+            <span class="chip">MIT MicroMasters — Statistics &amp; Data Science</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -513,60 +563,6 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
     <div class="pub">
       <div class="title">Protein Science Meets Artificial Intelligence: A Systematic Review</div>
       <div class="venue">Villalobos-Alva, S., et al. (2022) · <em>Frontiers in Bioengineering and Biotechnology</em> · <a href="https://www.frontiersin.org/articles/10.3389/fbioe.2022.788300/full" target="_blank" rel="noopener">Link ↗</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><h2>Skills &amp; tooling</h2></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h4>AI &amp; Machine Learning</h4>
-        <div class="chips">
-          <span class="chip">LLMs</span>
-          <span class="chip">RLHF</span>
-          <span class="chip">HelpSteer2</span>
-          <span class="chip">Mechanistic Interpretability</span>
-          <span class="chip">Activation Patching</span>
-          <span class="chip">Logit Lens</span>
-          <span class="chip">Residual Stream Analysis</span>
-          <span class="chip">NLP / NLU</span>
-          <span class="chip">Computer Vision</span>
-          <span class="chip">LLM Evaluation (Judge-LLM)</span>
-          <span class="chip">XGBoost</span>
-          <span class="chip">GMM</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h4>Programming</h4>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">PyTorch</span>
-          <span class="chip">TensorFlow</span>
-          <span class="chip">Hugging Face</span>
-          <span class="chip">Pandas</span>
-          <span class="chip">NumPy</span>
-          <span class="chip">Scikit-learn</span>
-          <span class="chip">SQL</span>
-          <span class="chip">NoSQL</span>
-          <span class="chip">TypeScript</span>
-          <span class="chip">R</span>
-          <span class="chip">Git</span>
-          <span class="chip">Linux / CLI</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h4>Languages &amp; Certifications</h4>
-        <div class="chips">
-          <span class="chip">Spanish (Native)</span>
-          <span class="chip">English (Fluent)</span>
-          <span class="chip">MIT MicroMasters — Statistics &amp; Data Science</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
