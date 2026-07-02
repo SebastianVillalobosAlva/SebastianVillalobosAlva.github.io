@@ -15,7 +15,7 @@
     --surface: #fffef5;
     --ink: #2b3a26;
     --ink-soft: #4c5a43;
-    --ink-faint: #7d8770;
+    --ink-faint: #616b57;
     --line: #ddd9bf;
     --accent: #587350;
     --accent-soft: #dfe7d3;
@@ -36,6 +36,28 @@
   a { color: var(--accent-ink); text-decoration: none; }
   a:hover { text-decoration: underline; }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
+
+  /* Accessibility: visible keyboard focus */
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  :focus:not(:focus-visible) { outline: none; }
+
+  /* Skip link for keyboard/screen-reader users */
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 200;
+    background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 600; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 12px; text-decoration: none; }
+
+  /* Page-switch entrance animation */
+  @keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .page-enter { animation: pageIn 0.34s cubic-bezier(.2,.6,.2,1) both; }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
 
   /* Layout: fixed sidebar + offset content */
   .sidebar {
@@ -105,7 +127,8 @@
     font-size: 0.9rem; font-weight: 600; border: 1px solid var(--line); background: var(--surface);
     color: var(--ink); transition: all 0.15s;
   }
-  .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-ink); transform: translateY(-1px); }
+  .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(52,73,46,0.4); }
+  .btn:active { transform: translateY(0); box-shadow: none; }
   .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
   .btn.primary:hover { background: var(--accent-ink); color: #fff; }
 
@@ -130,7 +153,9 @@
   .project {
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
     padding: 30px 32px; margin-bottom: 22px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
   }
+  .project:hover { border-color: #cfcba8; box-shadow: 0 14px 34px -20px rgba(52,73,46,0.35); transform: translateY(-2px); }
   .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .project-top > div { flex: 1; min-width: 0; }
   .project h3 { font-size: 1.32rem; margin: 0 0 4px; letter-spacing: -0.01em; }
@@ -182,10 +207,12 @@
   .hero-skills { margin-top: 44px; padding-top: 34px; border-top: 1px solid var(--line); }
   .hero-skills-title { font-size: 1.15rem; letter-spacing: -0.01em; margin: 0 0 18px; font-weight: 700; }
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
+  .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: #cfcba8; box-shadow: 0 12px 28px -20px rgba(52,73,46,0.3); transform: translateY(-2px); }
   .skill-card h4 { margin: 0 0 12px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); }
   .chips { display: flex; flex-wrap: wrap; gap: 7px; }
-  .chip { font-size: 0.82rem; background: var(--bg-alt); color: var(--ink-soft); padding: 5px 11px; border-radius: 7px; }
+  .chip { font-size: 0.82rem; background: var(--bg-alt); color: var(--ink-soft); padding: 5px 11px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
+  .chip:hover { background: var(--accent-soft); color: var(--accent-ink); }
 
   /* Publication */
   .pub { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 20px 24px; }
@@ -201,12 +228,14 @@
 </head>
 <body>
 
+<a class="skip-link" href="#top">Skip to content</a>
+
 <aside class="sidebar">
   <div>
     <div class="side-name">Sebastian<br />Villalobos</div>
     <div class="side-tag">AI Safety · Interpretability · Data Science</div>
   </div>
-  <nav class="side-nav">
+  <nav class="side-nav" aria-label="Sections">
     <a href="#top">Intro</a>
     <a href="#research">Research</a>
     <a href="#projects">Projects</a>
@@ -579,8 +608,21 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
 
   function showPage(id) {
     if (!pageIds.includes(id)) id = pageIds[0];
-    pages.forEach(p => { p.style.display = (p.id === id) ? '' : 'none'; });
-    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    pages.forEach(p => {
+      const on = p.id === id;
+      p.style.display = on ? '' : 'none';
+      if (on) {                       // replay the entrance animation
+        p.classList.remove('page-enter');
+        void p.offsetWidth;           // force reflow so the animation restarts
+        p.classList.add('page-enter');
+      }
+    });
+    navLinks.forEach(l => {
+      const on = l.getAttribute('href') === '#' + id;
+      l.classList.toggle('active', on);
+      if (on) l.setAttribute('aria-current', 'page');
+      else l.removeAttribute('aria-current');
+    });
     window.scrollTo(0, 0);
   }
 
