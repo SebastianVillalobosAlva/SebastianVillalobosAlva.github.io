@@ -20,6 +20,7 @@
     --accent: #587350;
     --accent-soft: #dfe7d3;
     --accent-ink: #34492e;
+    --on-accent: #ffffff;
     --radius: 14px;
     --maxw: 980px;
   }
@@ -44,7 +45,7 @@
   /* Skip link for keyboard/screen-reader users */
   .skip-link {
     position: absolute; left: 12px; top: -60px; z-index: 200;
-    background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 8px;
+    background: var(--accent); color: var(--on-accent); padding: 10px 16px; border-radius: 8px;
     font-size: 0.9rem; font-weight: 600; transition: top 0.2s;
   }
   .skip-link:focus { top: 12px; text-decoration: none; }
@@ -82,7 +83,8 @@
   .side-nav a:hover { background: var(--surface); color: var(--accent-ink); text-decoration: none; }
   .side-nav a.active { color: var(--accent-ink); font-weight: 600; background: var(--surface); }
   .side-nav a.active::before { background: var(--accent); transform: scale(1.5); }
-  .side-bottom { margin-top: auto; display: flex; flex-wrap: wrap; gap: 14px; padding-top: 24px; }
+  .side-foot { margin-top: auto; padding-top: 24px; }
+  .side-bottom { display: flex; flex-wrap: wrap; gap: 14px; }
   .side-bottom a { color: var(--ink-faint); font-size: 0.84rem; font-weight: 500; }
   .side-bottom a:hover { color: var(--accent-ink); text-decoration: none; }
 
@@ -103,14 +105,20 @@
   }
 
   /* Hero */
-  header.hero { padding: 84px 0 64px; }
+  header.hero { padding: 84px 0 64px; position: relative; overflow: hidden; }
+  header.hero::before {
+    content: ""; position: absolute; top: -160px; right: -120px; width: 460px; height: 460px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.13; pointer-events: none; z-index: 0;
+  }
+  header.hero .wrap { position: relative; z-index: 1; }
   .eyebrow {
     display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--accent-ink); background: var(--accent-soft);
     padding: 5px 12px; border-radius: 100px; margin-bottom: 22px;
   }
   h1 {
-    font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -0.03em;
+    font-size: clamp(2.5rem, 6vw, 3.7rem); line-height: 1.03; letter-spacing: -0.035em;
     margin: 0 0 18px; font-weight: 800;
   }
   .lede {
@@ -129,8 +137,8 @@
   }
   .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(52,73,46,0.4); }
   .btn:active { transform: translateY(0); box-shadow: none; }
-  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .btn.primary:hover { background: var(--accent-ink); color: #fff; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .btn.primary:hover { background: var(--accent-ink); color: var(--on-accent); }
 
   /* Sections */
   section { padding: 56px 0; border-top: 1px solid var(--line); }
@@ -242,10 +250,12 @@
     <a href="#experience">Experience</a>
     <a href="#publication">Publication</a>
   </nav>
-  <div class="side-bottom">
-    <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
-    <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="side-foot">
+    <div class="side-bottom">
+      <a href="mailto:s.villalobos.alva@gmail.com">Email</a>
+      <a href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </div>
 </aside>
 
