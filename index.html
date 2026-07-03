@@ -198,6 +198,11 @@
   .codeblock .s { color: #d6c98a; }
 
   /* CV */
+  .subsection-title {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;
+    color: var(--accent-ink); margin: 0 0 4px; padding-top: 30px; border-top: 1px solid var(--line);
+  }
+  .sec-head + .subsection-title { padding-top: 0; border-top: none; }
   .cv-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
   .entry { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
   .entry:last-child { border-bottom: none; }
@@ -248,7 +253,6 @@
     <a href="#research">Research</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
     <a href="#publication">Publication</a>
   </nav>
   <div class="side-foot">
@@ -512,16 +516,17 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
   </div>
 </section>
 
-<!-- EXPERIENCE -->
+<!-- EXPERIENCE & EDUCATION -->
 <section id="experience">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <h2>Experience</h2>
+        <h2>Experience &amp; Education</h2>
         <p class="sec-sub">LLM evaluation, RLHF alignment, and end-to-end ML systems</p>
       </div>
     </div>
 
+    <h3 class="subsection-title">Experience</h3>
     <div class="cv-grid">
       <div class="entry">
         <div>
@@ -562,19 +567,8 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <h2>Education</h2>
-        <p class="sec-sub">Georgetown M.S. Data Science &amp; Analytics; B.S. Mechatronics &amp; Production Engineering</p>
-      </div>
-    </div>
-
+    <h3 class="subsection-title">Education</h3>
     <div class="cv-grid">
       <div class="entry">
         <div>
@@ -585,6 +579,7 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
           <h3>Georgetown University</h3>
           <div class="role">M.S. in Data Science &amp; Analytics · GPA 4.0 / 4.0</div>
           <ul>
+            <li>Awarded a merit scholarship.</li>
             <li>Teaching Assistant — Database Systems and SQL.</li>
             <li>Teaching Assistant — AI Modeling.</li>
           </ul>
