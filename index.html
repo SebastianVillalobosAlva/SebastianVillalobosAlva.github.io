@@ -122,11 +122,6 @@
     .intro-flex { flex-direction: column; }
     .intro-photo { width: 160px; height: 160px; }
   }
-  .eyebrow {
-    display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--accent-ink); background: var(--accent-soft);
-    padding: 5px 12px; border-radius: 100px; margin-bottom: 22px;
-  }
   h1 {
     font-size: clamp(2.5rem, 6vw, 3.7rem); line-height: 1.03; letter-spacing: -0.035em;
     margin: 0 0 18px; font-weight: 800;
@@ -154,16 +149,6 @@
   .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--accent-ink); font-weight: 500; }
   h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); letter-spacing: -0.02em; margin: 0; font-weight: 700; }
   .sec-sub { color: var(--ink-faint); font-size: 0.95rem; margin: 6px 0 0; }
-
-  /* Thesis callout */
-  .thesis {
-    background: linear-gradient(160deg, #3d5436, #24371f);
-    color: #eef1e4; border-radius: var(--radius); padding: 38px 36px;
-  }
-  .thesis .eyebrow { background: rgba(255,255,255,0.14); color: #cdd9bd; }
-  .thesis p { font-family: 'Newsreader', serif; font-size: 1.22rem; line-height: 1.55; margin: 0 0 16px; color: #e7ecdb; }
-  .thesis p:last-child { margin-bottom: 0; }
-  .thesis strong { color: #fff; font-weight: 600; }
 
   /* Projects */
   .project {
@@ -308,29 +293,30 @@
     <div class="sec-head">
       <div>
         <h2>Research focus</h2>
-        <p class="sec-sub">The Mechanistic Structure of Safety in Neural Networks</p>
+        <p class="sec-sub">The question behind the two projects below</p>
       </div>
     </div>
-    <div class="thesis">
-      <span class="eyebrow">The thesis</span>
-      <p>
-        Today's AI safety is <strong>behavioral</strong>. RLHF and red-teaming teach a model
-        <em>what gets penalized</em> — not <strong>why</strong> something is harmful. That's why
-        safety breaks under temperature changes, adversarial prompts, and distribution shift:
-        there's no underlying principle, just pattern-matching on what got rewarded.
-      </p>
-      <p>
-        I'm investigating whether <strong>Stoic ethics</strong> — the dichotomy of control,
-        temperance, virtue — can be encoded at the <strong>representation level</strong> to
-        produce safety that is mechanistically grounded, then using interpretability to verify
-        it actually works inside the model.
-      </p>
-      <p>
-        Two projects, one bridge: a from-scratch interpretability toolkit
-        (<strong>ModelLens</strong>) and a philosophical steering pipeline
-        (<strong>Stoic&nbsp;LLM</strong>) — both built on a laptop with a 1B-parameter model.
-      </p>
-    </div>
+    <p class="lede">
+      Most AI safety right now is behavioral. RLHF and red-teaming teach a model
+      <em>what gets penalized</em>, not <em>why</em> something is harmful — which is part of why
+      safety breaks under temperature changes, adversarial prompts, or just enough distribution
+      shift. There's no underlying principle being learned, just pattern-matching on what got
+      rewarded.
+    </p>
+    <p class="lede">
+      What I'm actually working on is whether that has to be the case — whether something like
+      Stoic ethics (the dichotomy of control, temperance, virtue) can be encoded at the
+      representation level instead, so safety is mechanistically grounded rather than just trained
+      in. I built ModelLens to look inside a model and Stoic LLM Steering to actually try pushing
+      one toward that framework, then used the first to check what the second is really doing.
+    </p>
+    <p class="lede">
+      The honest answer so far is complicated, and that's kind of the point — steering shifts how
+      a model talks more reliably than what it decides, which tells you something real about where
+      the intervention does and doesn't work. Everything here runs on a laptop with 1B–3B models,
+      which limits what I can claim, but it's also forced the evaluation to be more careful than it
+      might have been otherwise.
+    </p>
   </div>
 </section>
 
