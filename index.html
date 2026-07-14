@@ -66,6 +66,10 @@
     background: var(--bg-alt); border-right: 1px solid var(--line);
     display: flex; flex-direction: column; padding: 36px 24px; z-index: 50;
   }
+  .side-photo {
+    width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+    margin-bottom: 14px; border: 1px solid var(--line);
+  }
   .side-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); }
   .side-tag {
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
@@ -122,11 +126,11 @@
     margin: 0 0 18px; font-weight: 800;
   }
   .lede {
-    font-family: 'Newsreader', Georgia, serif; font-size: clamp(0.98rem, 1.4vw, 1.08rem);
-    color: var(--ink-soft); max-width: 640px; margin: 0 0 20px; line-height: 1.6;
+    font-family: 'Newsreader', Georgia, serif; font-size: clamp(0.9rem, 1.2vw, 0.98rem);
+    color: var(--ink-soft); max-width: 620px; margin: 0 0 16px; line-height: 1.55;
   }
   .lede em { color: var(--ink); font-style: italic; }
-  .lede + .lede { margin-top: -14px; }
+  .lede + .lede { margin-top: -10px; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px;
@@ -227,6 +231,7 @@
 
 <aside class="sidebar">
   <div>
+    <img class="side-photo" src="me.jpg" alt="Sebastian Villalobos" width="60" height="60" />
     <div class="side-name">Sebastian<br />Villalobos</div>
     <div class="side-tag">AI Safety · Interpretability · Data Science</div>
   </div>
