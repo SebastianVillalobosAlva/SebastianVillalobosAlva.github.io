@@ -138,6 +138,7 @@
     font-size: 0.9rem; font-weight: 600; border: 1px solid var(--line); background: var(--surface);
     color: var(--ink); transition: all 0.15s;
   }
+  button.btn { font-family: inherit; cursor: pointer; }
   .btn:hover { text-decoration: none; border-color: var(--accent); color: var(--accent-ink); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(52,73,46,0.4); }
   .btn:active { transform: translateY(0); box-shadow: none; }
   .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
@@ -248,64 +249,71 @@
       <img class="intro-photo" src="me.jpg" alt="Sebastian Villalobos" width="260" height="260" />
       <div class="intro-text">
         <h1>Sebastian Villalobos</h1>
-        <p class="lede">
-          Hi, I'm Sebastian. I'm a Master's student at Georgetown building tools to look
-          <em>inside</em> neural networks, and using them to ask whether ethical reasoning can be
-          represented inside a model rather than just trained into its behavior.
-        </p>
-        <p class="lede">
-          Before this I did a mechatronics and production engineering degree in Mexico City, then
-          spent about four years in data and ML roles — first at Scale AI, where I built evaluation
-          frameworks for NVIDIA's RLHF alignment work (GPT-4 as judge, the HelpSteer2 methodology),
-          then at Welo Data, building ML pipelines for annotation quality and operations. Watching
-          how much of "AI safety" in practice comes down to a reward model and a rubric is part of
-          why I ended up here — training a model not to do something isn't the same as the model
-          understanding why not to.
-        </p>
-        <p class="lede">
-          That question is what I'm spending my Master's on. I built <strong>ModelLens</strong>, an
-          interpretability toolkit that works across architectures rather than just transformers,
-          and I'm using it to study <strong>Stoic LLM Steering</strong> — a project trying to push a
-          model's outputs toward Stoic philosophy and then checking, mechanistically, what that
-          steering actually changes inside the model versus what it just makes the model sound
-          like.
-        </p>
-        <p class="lede">
-          If you want to talk about any of this — or you're reviewing this for a PhD program or the
-          Anthropic Fellowship — email me at
-          <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a>.
-        </p>
+
+        <div id="intro-body">
+          <p class="lede">
+            Hi, I'm Sebastian. I'm a Master's student at Georgetown building tools to look
+            <em>inside</em> neural networks, and using them to ask whether ethical reasoning can be
+            represented inside a model rather than just trained into its behavior.
+          </p>
+          <p class="lede">
+            Before this I did a mechatronics and production engineering degree in Mexico City, then
+            spent about four years in data and ML roles — first at Scale AI, where I built
+            evaluation frameworks for NVIDIA's RLHF alignment work (GPT-4 as judge, the HelpSteer2
+            methodology), then at Welo Data, building ML pipelines for annotation quality and
+            operations. Watching how much of "AI safety" in practice comes down to a reward model
+            and a rubric is part of why I ended up here — training a model not to do something
+            isn't the same as the model understanding why not to.
+          </p>
+          <p class="lede">
+            That question is what I'm spending my Master's on. I built <strong>ModelLens</strong>,
+            an interpretability toolkit that works across architectures rather than just
+            transformers, and I'm using it to study <strong>Stoic LLM Steering</strong> — a project
+            trying to push a model's outputs toward Stoic philosophy and then checking,
+            mechanistically, what that steering actually changes inside the model versus what it
+            just makes the model sound like.
+          </p>
+          <p class="lede">
+            If you want to talk about any of this — or you're reviewing this for a PhD program or
+            the Anthropic Fellowship — email me at
+            <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a>.
+          </p>
+        </div>
+
+        <div id="research-body" hidden>
+          <p class="lede">
+            Most AI safety right now is behavioral. RLHF and red-teaming teach a model
+            <em>what gets penalized</em>, not <em>why</em> something is harmful — which is part of
+            why safety breaks under temperature changes, adversarial prompts, or just enough
+            distribution shift. There's no underlying principle being learned, just
+            pattern-matching on what got rewarded.
+          </p>
+          <p class="lede">
+            What I'm actually working on is whether that has to be the case — whether something
+            like Stoic ethics (the dichotomy of control, temperance, virtue) can be encoded at the
+            representation level instead, so safety is mechanistically grounded rather than just
+            trained in. I built ModelLens to look inside a model and Stoic LLM Steering to actually
+            try pushing one toward that framework, then used the first to check what the second is
+            really doing.
+          </p>
+          <p class="lede">
+            The honest answer so far is complicated, and that's kind of the point — steering shifts
+            how a model talks more reliably than what it decides, which tells you something real
+            about where the intervention does and doesn't work. Everything here runs on a laptop
+            with 1B–3B models, which limits what I can claim, but it's also forced the evaluation to
+            be more careful than it might have been otherwise.
+          </p>
+        </div>
+
         <div class="cta">
           <a class="btn primary" href="#projects">View projects</a>
+          <button type="button" class="btn" id="researchToggle">Research Focus</button>
           <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
           <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">CV ↗</a>
         </div>
       </div>
     </div>
-
-    <h3 class="subsection-title">Research Focus</h3>
-    <p class="lede">
-      Most AI safety right now is behavioral. RLHF and red-teaming teach a model
-      <em>what gets penalized</em>, not <em>why</em> something is harmful — which is part of why
-      safety breaks under temperature changes, adversarial prompts, or just enough distribution
-      shift. There's no underlying principle being learned, just pattern-matching on what got
-      rewarded.
-    </p>
-    <p class="lede">
-      What I'm actually working on is whether that has to be the case — whether something like
-      Stoic ethics (the dichotomy of control, temperance, virtue) can be encoded at the
-      representation level instead, so safety is mechanistically grounded rather than just trained
-      in. I built ModelLens to look inside a model and Stoic LLM Steering to actually try pushing
-      one toward that framework, then used the first to check what the second is really doing.
-    </p>
-    <p class="lede">
-      The honest answer so far is complicated, and that's kind of the point — steering shifts how
-      a model talks more reliably than what it decides, which tells you something real about where
-      the intervention does and doesn't work. Everything here runs on a laptop with 1B–3B models,
-      which limits what I can claim, but it's also forced the evaluation to be more careful than it
-      might have been otherwise.
-    </p>
   </div>
 </header>
 
@@ -523,6 +531,17 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
 
   // Initial page from the URL hash, defaulting to the first link (Intro).
   showPage((location.hash || '').slice(1) || pageIds[0]);
+
+  // Intro/Research toggle: swaps the bio text for the research text in place.
+  const researchToggle = document.getElementById('researchToggle');
+  const introBody = document.getElementById('intro-body');
+  const researchBody = document.getElementById('research-body');
+  researchToggle.addEventListener('click', () => {
+    const goingToResearch = researchBody.hidden;
+    introBody.hidden = goingToResearch;
+    researchBody.hidden = !goingToResearch;
+    researchToggle.textContent = goingToResearch ? 'Intro' : 'Research Focus';
+  });
 </script>
 
 </body>
