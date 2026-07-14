@@ -126,10 +126,8 @@
     color: var(--ink-soft); max-width: 680px; margin: 0 0 28px; line-height: 1.5;
   }
   .lede em { color: var(--ink); font-style: italic; }
-  .meta { padding-left: 20px; margin: 0 0 26px; font-size: 0.95rem; color: var(--ink-soft); }
-  .meta li { margin-bottom: 6px; }
-  .meta li::marker { color: var(--accent); }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .lede + .lede { margin-top: -14px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px;
     font-size: 0.9rem; font-weight: 600; border: 1px solid var(--line); background: var(--surface);
@@ -166,19 +164,14 @@
   .project:hover { border-color: #cfcba8; box-shadow: 0 14px 34px -20px rgba(52,73,46,0.35); transform: translateY(-2px); }
   .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .project-top > div { flex: 1; min-width: 0; }
+  .project .date {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+    color: var(--ink-faint); margin-bottom: 6px;
+  }
   .project h3 { font-size: 1.32rem; margin: 0 0 4px; letter-spacing: -0.01em; }
   .project .tagline { color: var(--ink-faint); font-size: 0.9rem; margin: 0 0 16px; font-weight: 500; }
   .project p { color: var(--ink-soft); margin: 0 0 16px; }
-  .findings { margin: 0 0 16px; padding-left: 20px; color: var(--ink-soft); }
-  .findings li { margin-bottom: 10px; padding-left: 4px; }
-  .findings li::marker { color: var(--accent); }
-  .findings strong { color: var(--ink); }
-  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
-  .tag {
-    font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-ink);
-    background: var(--accent-soft); padding: 4px 10px; border-radius: 6px;
-  }
-  .project-links { display: flex; gap: 18px; font-size: 0.88rem; font-weight: 600; }
+  .project p:last-child { margin-bottom: 0; }
   .repo-btn {
     flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px;
     padding: 7px 14px; border-radius: 100px; font-size: 0.82rem; font-weight: 600;
@@ -215,17 +208,6 @@
   .entry ul li::marker { color: var(--accent); }
   .sub-role { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); }
   @media (max-width: 600px) { .entry { grid-template-columns: 1fr; gap: 6px; } .entry .when { padding-top: 0; } }
-
-  /* Skills */
-  .hero-skills { margin-top: 44px; padding-top: 34px; border-top: 1px solid var(--line); }
-  .hero-skills-title { font-size: 1.15rem; letter-spacing: -0.01em; margin: 0 0 18px; font-weight: 700; }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .skill-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
-  .skill-card:hover { border-color: #cfcba8; box-shadow: 0 12px 28px -20px rgba(52,73,46,0.3); transform: translateY(-2px); }
-  .skill-card h4 { margin: 0 0 12px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); }
-  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
-  .chip { font-size: 0.82rem; background: var(--bg-alt); color: var(--ink-soft); padding: 5px 11px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
-  .chip:hover { background: var(--accent-soft); color: var(--accent-ink); }
 
   /* Publication */
   .pub { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 20px 24px; }
@@ -268,74 +250,38 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="eyebrow">AI Safety · Mechanistic Interpretability · Data Science</span>
     <h1>Sebastian Villalobos</h1>
     <p class="lede">
-      Data Science M.S. candidate at Georgetown building tools to look <em>inside</em> neural
-      networks — and asking whether 2,000 years of moral philosophy can make AI safety
-      <em>mechanistically grounded</em> rather than just behaviorally trained.
+      Hi, I'm Sebastian. I'm a Master's student at Georgetown building tools to look
+      <em>inside</em> neural networks, and using them to ask whether ethical reasoning can be
+      represented inside a model rather than just trained into its behavior.
     </p>
-    <ul class="meta">
-      <li>Washington, DC</li>
-      <li>Georgetown University — M.S. in Data Science &amp; Analytics</li>
-      <li>Universidad Iberoamericana — B.S. in Mechatronics &amp; Production Engineering</li>
-      <li>Email - <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a></li>
-      <li>PN - <a href="tel:+12024929146">+1 (202) 492 9146</a></li>
-    </ul>
+    <p class="lede">
+      Before this I did a mechatronics and production engineering degree in Mexico City, then
+      spent about four years in data and ML roles — first at Scale AI, where I built evaluation
+      frameworks for NVIDIA's RLHF alignment work (GPT-4 as judge, the HelpSteer2 methodology),
+      then at Welo Data, building ML pipelines for annotation quality and operations. Watching how
+      much of "AI safety" in practice comes down to a reward model and a rubric is part of why I
+      ended up here — training a model not to do something isn't the same as the model
+      understanding why not to.
+    </p>
+    <p class="lede">
+      That question is what I'm spending my Master's on. I built <strong>ModelLens</strong>, an
+      interpretability toolkit that works across architectures rather than just transformers, and
+      I'm using it to study <strong>Stoic LLM Steering</strong> — a project trying to push a
+      model's outputs toward Stoic philosophy and then checking, mechanistically, what that
+      steering actually changes inside the model versus what it just makes the model sound like.
+    </p>
+    <p class="lede">
+      If you want to talk about any of this — or you're reviewing this for a PhD program or the
+      Anthropic Fellowship — email me at
+      <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a>.
+    </p>
     <div class="cta">
       <a class="btn primary" href="#projects">View projects</a>
       <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">CV ↗</a>
-    </div>
-
-    <div class="hero-skills">
-      <h2 class="hero-skills-title">Skills &amp; tooling</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>AI &amp; Machine Learning</h4>
-          <div class="chips">
-            <span class="chip">LLMs</span>
-            <span class="chip">RLHF</span>
-            <span class="chip">HelpSteer2</span>
-            <span class="chip">Mechanistic Interpretability</span>
-            <span class="chip">Activation Patching</span>
-            <span class="chip">Logit Lens</span>
-            <span class="chip">Residual Stream Analysis</span>
-            <span class="chip">NLP / NLU</span>
-            <span class="chip">Computer Vision</span>
-            <span class="chip">LLM Evaluation (Judge-LLM)</span>
-            <span class="chip">XGBoost</span>
-            <span class="chip">GMM</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>Programming</h4>
-          <div class="chips">
-            <span class="chip">Python</span>
-            <span class="chip">PyTorch</span>
-            <span class="chip">TensorFlow</span>
-            <span class="chip">Hugging Face</span>
-            <span class="chip">Pandas</span>
-            <span class="chip">NumPy</span>
-            <span class="chip">Scikit-learn</span>
-            <span class="chip">SQL</span>
-            <span class="chip">NoSQL</span>
-            <span class="chip">TypeScript</span>
-            <span class="chip">R</span>
-            <span class="chip">Git</span>
-            <span class="chip">Linux / CLI</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>Languages &amp; Certifications</h4>
-          <div class="chips">
-            <span class="chip">Spanish (Native)</span>
-            <span class="chip">English (Fluent)</span>
-            <span class="chip">MIT MicroMasters — Statistics &amp; Data Science</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </header>
@@ -378,16 +324,45 @@
     <div class="sec-head">
       <div>
         <h2>Projects</h2>
-        <p class="sec-sub">Interpretability tooling and philosophical steering for safety</p>
+        <p class="sec-sub">What I've been building, most recent first</p>
       </div>
+    </div>
+
+    <!-- Stoic LLM -->
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <span class="date">Jul 2026</span>
+          <h3>Stoic LLM Steering</h3>
+          <p class="tagline">What steering actually moves</p>
+        </div>
+        <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Stoic-Steering" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>Repository</span> ↗
+        </a>
+      </div>
+      <p>
+        The core question: if you push a model's outputs toward Stoic philosophy, does that change
+        what the model <em>decides</em>, or just how it <em>talks</em>? I built a full pipeline —
+        contrastive pair generation, activation steering (CAA), LoRA fine-tuning, and judge-free
+        forced-choice evals — to find out.
+      </p>
+      <p>
+        Short version: style moves easily, content moves with clean data, and decisions mostly
+        don't. Activation steering never shifted the model's actual choices, even at strengths that
+        broke coherence. LoRA fine-tuning did reach the decision layer, but what it installed
+        wasn't clean Stoic reasoning so much as a passivity bias for one philosopher and an
+        unresolved confound for another.
+      </p>
     </div>
 
     <!-- ModelLens -->
     <div class="project">
       <div class="project-top">
         <div>
+          <span class="date">Jun 2026</span>
           <h3>ModelLens</h3>
-          <p class="tagline">Architecture-agnostic neural network interpretability toolkit</p>
+          <p class="tagline">Same behavior, different circuits</p>
         </div>
         <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/ModelLens" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -395,11 +370,8 @@
         </a>
       </div>
       <p>
-        Point ModelLens at <em>any</em> PyTorch model — transformer, CNN, LSTM, GRU, or MLP — and
-        it auto-detects the architecture and runs the interpretability analyses that make sense for
-        it. Where TransformerLens works only on transformers, ModelLens uses an <strong>adapter
-        pattern</strong> to give a single unified API across architecture families, declaring which
-        analyses are available and raising a clear error when one doesn't apply.
+        An interpretability toolkit that works on whatever architecture you hand it — transformer,
+        CNN, LSTM, MLP — instead of assuming transformers like most tools in this space do.
       </p>
       <div class="codeblock"><span class="k">from</span> modellens <span class="k">import</span> ModelLens
 
@@ -408,94 +380,19 @@ results = lens.layer_probe(inputs)  <span class="c"># generalized logit lens</sp
 attn    = lens.attention_map(inputs)
 effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal intervention</span></div>
       <p>
-        The analysis suite covers layer probing (generalized logit lens), attention maps, activation
-        patching, residual-stream contribution analysis, embedding inspection, CNN filter &amp;
-        feature-map evolution, LSTM/GRU gate decomposition, and automated circuit discovery — each
-        gated by an <code>AnalysisCapability</code> the adapter declares. Hook lifecycles are managed
-        by context managers, so captured activations are always released even when an analysis throws.
+        Used it to compare the two Stoic-steering methods above at the circuit level: they produce
+        the same Stoic-flavored text, but activation steering runs through a single mid-layer
+        bottleneck while LoRA rewires the model's output layer. Same behavior, genuinely different
+        mechanism.
       </p>
-      <p>
-        <strong>Flagship result.</strong> I used ModelLens to run a behavior-controlled circuit
-        comparison on a 3B model: two steering methods (activation addition vs. LoRA fine-tuning)
-        produce the <em>same</em> Stoic-flavored output through <em>different</em> circuits —
-        activation steering concentrates in a single L8→L9–13 feed-forward pathway (layer-12 MLP is
-        the causal bottleneck), while LoRA distributes its effect across many layers and uses
-        attention as well as MLPs. That "same behavior, different mechanism" finding is exactly the
-        kind of question interpretability tooling exists to answer.
-      </p>
-      <div class="tags">
-        <span class="tag">PyTorch</span>
-        <span class="tag">HuggingFace</span>
-        <span class="tag">activation patching</span>
-        <span class="tag">logit lens</span>
-        <span class="tag">residual stream</span>
-        <span class="tag">circuit discovery</span>
-        <span class="tag">adapter pattern</span>
-      </div>
-    </div>
-
-    <!-- Stoic LLM -->
-    <div class="project">
-      <div class="project-top">
-        <div>
-          <h3>Stoic LLM Steering</h3>
-          <p class="tagline">Philosophical steering toward mechanistically grounded safety</p>
-        </div>
-        <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Stoic-Steering" target="_blank" rel="noopener">
-          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-          <span>Repository</span> ↗
-        </a>
-      </div>
-      <p>
-        Steers Llama-3.2 (1B → 3B) toward Stoic philosophy — Epictetus, Seneca, Marcus Aurelius —
-        using <strong>Contrastive Activation Addition (CAA)</strong> and <strong>LoRA</strong>
-        fine-tuning. The full pipeline is built from scratch: scraping the source texts, generating
-        contrastive Stoic/neutral pairs (100+ per philosopher) via the Claude API, extracting
-        steering vectors, and scoring outputs with an LLM-as-judge across layer × coefficient sweeps.
-      </p>
-      <p>
-        The motivating idea is <em>philosophy as mechanistic safety</em> — using Stoic principles
-        (the dichotomy of control, temperance, virtue ethics) as a constraint framework rather than
-        an RLHF-style reward signal. But the work's real value is its <strong>rigor about what does
-        and doesn't hold</strong>:
-      </p>
-      <ul class="findings">
-        <li><strong>A register direction, not a decision direction.</strong> Three independent
-          instruments converge on the same boundary: steering robustly shifts <em>style</em>
-          (+1.0 to +1.6 by LLM-judge), weakly and inconsistently shifts <em>reasoning</em> in prose,
-          and — on a judge-free, generation-free forced-choice dilemma probe — does <em>not</em> move
-          the model's actual <em>choice</em> at any strength, right up to the edge of incoherence. It
-          changes how the model talks, not what it decides.</li>
-        <li><strong>CAA vs. LoRA, mechanistically.</strong> Both produce Stoic-flavored text, but
-          ModelLens shows they do so through <em>different circuits</em> — the publishable anchor, and
-          the basis for the open thesis test: does LoRA move decisions where activation steering
-          can't?</li>
-        <li><strong>Built to catch its own artifacts.</strong> Seed-averaged, decoding-matched,
-          label-order-balanced probes; capacity isolated as the bottleneck (effects strengthen from
-          1B to 3B); and an early "all philosophers converge on layer 8" result traced to an
-          extraction bug and explicitly superseded rather than reported.</li>
-      </ul>
-      <p>
-        The result is a clean characterization of what activation steering can and can't do — a
-        more defensible claim than any single positive number, and a sharper question for the next
-        experiment than the project started with.
-      </p>
-      <div class="tags">
-        <span class="tag">Llama-3.2 1B/3B</span>
-        <span class="tag">CAA</span>
-        <span class="tag">LoRA</span>
-        <span class="tag">steering vectors</span>
-        <span class="tag">LLM-as-judge</span>
-        <span class="tag">mechanistic eval</span>
-      </div>
     </div>
 
     <!-- Political Sentiment -->
     <div class="project">
       <div class="project-top">
         <div>
+          <span class="date">2025</span>
           <h3>Political Sentiment Analysis</h3>
-          <p class="tagline">Emotion classification across Congressional speech</p>
         </div>
         <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Political-Sentiment-Analysis" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -503,15 +400,10 @@ effects = lens.activation_patch(clean, corrupted)  <span class="c"># causal inte
         </a>
       </div>
       <p>
-        A DistilBERT-based NLP pipeline for emotion classification across 2,000+ Congressional
-        speeches, surfacing statistically significant partisan patterns in how members of each party
-        speak.
+        A DistilBERT pipeline classifying emotion across 2,000+ Congressional speeches, looking for
+        partisan patterns in how members of each party talk. Class project, not part of the
+        interpretability work above — kept here for completeness.
       </p>
-      <div class="tags">
-        <span class="tag">DistilBERT</span>
-        <span class="tag">NLP</span>
-        <span class="tag">emotion classification</span>
-      </div>
     </div>
   </div>
 </section>
