@@ -117,12 +117,12 @@
   .intro-photo {
     width: 260px; height: 260px; border-radius: var(--radius); object-fit: cover;
     flex-shrink: 0; border: 1px solid var(--line);
-    position: sticky; top: 40px;
+    position: sticky; top: 40px; transform: translateX(-48px);
   }
   .intro-text { flex: 1; min-width: 0; }
   @media (max-width: 640px) {
     .intro-flex { flex-direction: column; }
-    .intro-photo { width: 160px; height: 160px; position: static; }
+    .intro-photo { width: 160px; height: 160px; position: static; transform: none; }
   }
   h1 {
     font-size: clamp(2.5rem, 6vw, 3.7rem); line-height: 1.03; letter-spacing: -0.035em;
