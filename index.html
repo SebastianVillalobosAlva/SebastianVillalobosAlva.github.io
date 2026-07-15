@@ -114,15 +114,23 @@
   }
   header.hero .wrap { position: relative; z-index: 1; }
   .intro-flex { display: flex; gap: 32px; align-items: flex-start; }
+  .intro-photo-col {
+    flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;
+    position: sticky; top: 40px; transform: translateX(-62px);
+  }
   .intro-photo {
     width: 260px; height: 260px; border-radius: var(--radius); object-fit: cover;
-    flex-shrink: 0; border: 1px solid var(--line);
-    position: sticky; top: 40px; transform: translateX(-48px);
+    border: 1px solid var(--line); display: block;
   }
+  .intro-photo-col .cta { flex-direction: column; align-items: stretch; margin-top: 0; }
+  .intro-photo-col .btn { justify-content: center; }
   .intro-text { flex: 1; min-width: 0; }
   @media (max-width: 640px) {
     .intro-flex { flex-direction: column; }
-    .intro-photo { width: 160px; height: 160px; position: static; transform: none; }
+    .intro-photo-col { position: static; transform: none; width: 100%; }
+    .intro-photo { width: 160px; height: 160px; }
+    .intro-photo-col .cta { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+    .intro-photo-col .btn { justify-content: flex-start; }
   }
   h1 {
     font-size: clamp(2.5rem, 6vw, 3.7rem); line-height: 1.03; letter-spacing: -0.035em;
@@ -248,7 +256,15 @@
   <div class="bg-decor"></div>
   <div class="wrap">
     <div class="intro-flex">
-      <img class="intro-photo" src="me.jpg" alt="Sebastian Villalobos" width="260" height="260" />
+      <div class="intro-photo-col">
+        <img class="intro-photo" src="me.jpg" alt="Sebastian Villalobos" width="260" height="260" />
+        <div class="cta">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">CV ↗</a>
+        </div>
+      </div>
       <div class="intro-text">
         <h1>Sebastian Villalobos</h1>
 
@@ -279,13 +295,6 @@
           Anthropic Fellowship — email me at
           <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a>.
         </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#projects">View projects</a>
-          <a class="btn" href="https://github.com/SebastianVillalobosAlva" target="_blank" rel="noopener">GitHub ↗</a>
-          <a class="btn" href="https://www.linkedin.com/in/sebastian-villalobos-alva/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="btn" href="Sebastian-Villalobos-Resume.pdf" target="_blank" rel="noopener">CV ↗</a>
-        </div>
 
         <h3 class="subsection-title">Research Focus</h3>
         <p class="lede">
