@@ -589,6 +589,25 @@
       color: #d6c98a;
     }
 
+    .project-figure {
+      margin: 4px 0 0;
+    }
+
+    .project-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+
+    .project-figure figcaption {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--ink-faint);
+    }
+
     /* CV */
     .subsection-title {
       font-size: 0.8rem;
@@ -819,10 +838,10 @@
               framework, using the former to inspect what the steering actually changes under the hood.
             </p>
             <p class="lede">
-              The honest answer so far is complicated, which is precisely the point. The data shows that representation
+              The honest answer so far is complicated. The data shows that representation
               steering shifts how a model talks much more reliably than what it actually decides, revealing a clear
               boundary of where this style of intervention succeeds and where it falls short. So far, the experiments
-              I've run have been on 1B–3B models. While this scale limits broader generalization claims, it has forced
+              I've run have been on 3B models. While this scale limits broader generalization claims, it has forced
               the evaluation to be far more precise, rigorous, and carefully isolated than it might have been otherwise.
             </p>
           </div>
@@ -859,7 +878,7 @@
           </div>
           <p>
             An interpretability toolkit that works on whatever architecture you hand it — transformer,
-            CNN, LSTM, MLP — instead of assuming transformers like most tools in this space do.
+            CNN, LSTM, MLP. With an MCP server that exposes the toolkit to agent workflows
           </p>
           <div class="codeblock"><span class="k">from</span> modellens <span class="k">import</span> ModelLens
 
@@ -868,11 +887,20 @@
             attn = lens.attention_map(inputs)
             effects = lens.activation_patch(clean, corrupted) <span class="c"># causal intervention</span></div>
           <p>
-            I used it to compare two different Stoic-steering methods (below) at the circuit level:
-            they produce the same Stoic-flavored text, but activation steering runs through a single
-            mid-layer bottleneck while LoRA rewires the model's output layer. Same behavior, genuinely
-            different mechanism.
+            I used it to compare two Stoic-steering methods (below) at the circuit level. Activation steering leaves the
+            circuit untouched: identical topology for all three philosophers. LoRA rewires the model's output layer. The
+            circuit picture showed that split before the behavioral evals did, and the evals then agreed: CAA moves
+            nothing measurable, LoRA reaches decisions.
           </p>
+          <figure class="project-figure">
+            <img src="assets/figures/fig_exp12c_node_shift.png"
+              alt="Maximum circuit node shift against the base model. Activation
+            steering sits near zero for all three philosophers; LoRA clears
+            the threshold, with Seneca highest."
+              loading="lazy">
+            <figcaption>Activation steering leaves the circuit essentially untouched.
+              LoRA shifts it, most strongly for Seneca.</figcaption>
+          </figure>
         </div>
 
         <!-- Stoic LLM -->
@@ -893,18 +921,32 @@
             </a>
           </div>
           <p>
-            The core question: if you push a model's outputs toward Stoic philosophy, does that change
-            what the model <em>decides</em>, or just how it <em>talks</em>? I built a full pipeline —
-            contrastive pair generation, activation steering (CAA), LoRA fine-tuning, and judge-free
-            forced-choice evals — to find out.
+            The core question: if you push a model toward Stoic philosophy, does that change what the model decides, or
+            just how it talks? I built a pipeline with the following to find out: contrastive pair generation,
+            activation steering (CAA),
+            LoRA fine-tuning, judge-free forced-choice evals, and circuit analysis.
           </p>
           <p>
             Short version: style moves easily, content moves with clean data, and decisions mostly
-            don't. Activation steering never shifted the model's actual choices, even at strengths that
-            broke coherence. LoRA fine-tuning did reach the decision layer, but what it installed
-            wasn't clean Stoic reasoning so much as a passivity bias for one philosopher and an
-            unresolved confound for another.
+            don't. The first result I obtained was that activation steering appeared to change the model's ethical
+            decisions. I found that result was wrong: steered and baseline generations were being decoded under
+            different conditions, caused by a silent fallback in my own pipeline. Under matched decoding across seeds,
+            CAA showed no effect on decisions. LoRA fine-tuning is the only intervention that reaches the decision
+            layer, and circuit analysis shows it rewires the output layer where activation steering runs through a
+            single mid-layer bottleneck. Its behavioral effects differ by philosopher: Seneca shifts ethical decisions,
+            though I'm still testing whether that's driven by topic proximity or by lexical echo in the option wording;
+            Marcus Aurelius installs a passivity prior; and Epictetus, whose corpus is the smallest of the three, shows
+            no effect.
           </p>
+          <figure class="project-figure">
+            <img src="assets/figures/fig_three_depths.png"
+              alt="Style, content, and decision effects before and after matched
+            decoding. CAA effects collapse to zero at every level; the
+            decision measure was flat throughout."
+              loading="lazy">
+            <figcaption>Under matched decoding, CAA's apparent style and content effects
+              collapse. The decision measure was logit-based and never affected.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
