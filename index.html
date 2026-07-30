@@ -830,7 +830,7 @@
             <p class="lede">
               My research asks whether this limitation is fundamental, specifically whether formal ethical frameworks
               can be encoded directly into a model's representation space, making safety mechanistically grounded rather
-              than just an optimized behavioral. While I am currently using Stoic philosophy (the dichotomy of
+              than just an optimized behavior. While I am currently using Stoic philosophy (the dichotomy of
               control, temperance) as a primary test case, the broader goal is to evaluate if neural networks can
               represent structured moral reasoning, ranging from Kantian deontology (duty and universalizability) to
               Thomistic double-effect reasoning (intention and proportionality). To explore this, I built ModelLens to
@@ -838,9 +838,11 @@
               framework, using the former to inspect what the steering actually changes under the hood.
             </p>
             <p class="lede">
-              The honest answer so far is complicated. The data shows that representation
-              steering shifts how a model talks much more reliably than what it actually decides, revealing a clear
-              boundary of where this style of intervention succeeds and where it falls short. So far, the experiments
+              The honest answer so far is complicated. Under matched decoding, activation steering moves nothing
+              measurable at any of the three levels I test — style, content, or decision. Weight-level adaptation
+              (LoRA) is the only intervention that reaches decisions, and even then the effect differs by philosopher
+              rather than installing a uniform Stoic prior. That boundary, between changing a model's representations
+              and changing what it does, is the most useful thing the project has produced. So far, the experiments
               I've run have been on 3B models. While this scale limits broader generalization claims, it has forced
               the evaluation to be far more precise, rigorous, and carefully isolated than it might have been otherwise.
             </p>
@@ -888,9 +890,9 @@
             effects = lens.activation_patch(clean, corrupted) <span class="c"># causal intervention</span></div>
           <p>
             I used it to compare two Stoic-steering methods (below) at the circuit level. Activation steering leaves the
-            circuit untouched: identical topology for all three philosophers. LoRA rewires the model's output layer. The
-            circuit picture showed that split before the behavioral evals did, and the evals then agreed: CAA moves
-            nothing measurable, LoRA reaches decisions.
+            circuit essentially untouched: near-identical topology for all three philosophers. LoRA rewires the model's
+            output layer. The circuit picture and the behavioral evals agree on the same split: CAA moves nothing
+            measurable, LoRA reaches decisions.
           </p>
           <figure class="project-figure">
             <img src="assets/figures/fig_exp12c_node_shift.png"
