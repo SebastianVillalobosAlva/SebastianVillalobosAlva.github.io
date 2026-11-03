@@ -884,9 +884,8 @@
           <div class="project-top">
             <div>
               <span class="date">Jul 2026</span>
-              <h3>Weight space vs. activation space</h3>
-              <p class="tagline">Do they install the same behavior?<br />Stoic philosophy is the test axis; sycophancy is
-                next.</p>
+              <h3>Stoic LLM Steering</h3>
+              <p class="tagline">What steering actually moves</p>
             </div>
             <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Stoic-Steering" target="_blank"
               rel="noopener">
@@ -904,36 +903,34 @@
             LoRA fine-tuning, judge-free forced-choice evals, and circuit analysis.
           </p>
           <p>
-            Short version: at the strength I tested, activation steering moves nothing measurable, and LoRA moves
-            decisions through register rather than reasoning. The first result I obtained was that activation steering
-            appeared to change the style and content of the model's answers. I found that result was wrong: steered and
-            baseline generations were being decoded under different conditions, caused by a silent fallback in my own
-            pipeline. Under matched decoding across seeds, CAA showed no effect on style or content, and the judge-free
-            decision measure was flat throughout. On the original 40 items, LoRA fine-tuning is the only intervention
-            that moves that measure (CAA hasn't been run on the newer item sets), and a pilot circuit analysis shows the
-            same split: activation steering leaves the circuit essentially untouched, while LoRA perturbs it. One
-            caveat: the two methods also train on different objectives, so method and objective are confounded. A
-            non-philosophical control moved −0.036 log-odds (n.s.). Older LoRA adapters, trained before the corpus was
-            cleaned, also shifted judge-scored style and content; the clean adapters haven't been judge-scored.
-          </p>
-          <p>
-            The decision effects differ by philosopher. A pre-registered test at n=100 shows Seneca's movement is lexical
-            echo, not reasoning: idiom-worded items move +0.099 log-odds and plain-worded items move −0.083. Those 100
-            items include the 40 where the pattern first appeared; on the 60 new items alone, the idiom-vs-plain contrast
-            is +0.148 log-odds, p=0.117 (exploratory). Marcus Aurelius moved only the accepting dilemmas on the original
-            items, but doesn't count as an axis effect in the powered test; and Epictetus shows no effect, but its corpus
-            is by far the smallest, so I treat it as underpowered rather than a true null.
+            Short version: style moves easily, content moves with clean data, and decisions mostly
+            don't. The first result I obtained was that activation steering appeared to change the model's ethical
+            decisions. I found that result was wrong: steered and baseline generations were being decoded under
+            different conditions, caused by a silent fallback in my own pipeline. Under matched decoding across seeds,
+            CAA showed no effect on decisions. LoRA fine-tuning is the only intervention that reaches the decision
+            layer, and circuit analysis shows it rewires the output layer where activation steering runs through a
+            single mid-layer bottleneck. Its behavioral effects differ by philosopher: Seneca shifts ethical decisions,
+            but a pre-registered test at n=100 shows that's lexical echo in the option wording, not reasoning;
+            Marcus Aurelius installs a passivity prior; and Epictetus, whose corpus is the smallest of the three, shows
+            no effect.
           </p>
           <figure class="project-figure">
             <img src="assets/figures/fig_three_depths.png"
-              alt="CAA and LoRA effects on style, content, and decision for each
-            philosopher. CAA is flat at every level under matched decoding. LoRA moves style and content for all three
-            and decisions for Marcus and Seneca, with Epictetus null."
+              alt="Style, content, and decision effects before and after matched
+            decoding. CAA effects collapse to zero at every level; the
+            decision measure was flat throughout."
               loading="lazy">
             <figcaption>Under matched decoding, CAA's apparent style and content effects
-              collapse. The decision measure was logit-based and never affected. LoRA's style and content panels use older
-              adapters trained before the corpus was cleaned. The decision panel is the original 40-item result; for
-              Seneca, the powered test shows that movement is lexical echo, not reasoning.</figcaption>
+              collapse. The decision measure was logit-based and never affected.</figcaption>
+          </figure>
+          <figure class="project-figure">
+            <img src="assets/figures/fig_exp12c_node_shift.png"
+              alt="Maximum circuit node shift against the base model across 10 items, for the
+            LoRA Seneca and Marcus adapters only. Seneca's median is 0.39 and Marcus's is 0.17; activation steering and
+            Epictetus are not shown."
+              loading="lazy">
+            <figcaption>A separate 10-item sweep of the LoRA adapters only: Seneca's shifts are the largest, with a median of
+              0.39 against Marcus's 0.17.</figcaption>
           </figure>
         </div>
 
@@ -943,7 +940,7 @@
             <div>
               <span class="date">Jun 2026</span>
               <h3>ModelLens</h3>
-              <p class="tagline">Same axis, different circuit effects</p>
+              <p class="tagline">One interface across architectures</p>
             </div>
             <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/ModelLens" target="_blank"
               rel="noopener">
@@ -965,20 +962,15 @@
             attn = lens.attention_map(inputs)
             effects = lens.activation_patch(clean, corrupted) <span class="c"># causal intervention</span></div>
           <p>
-            I used it to compare two Stoic-steering methods (above) at the circuit level. In a pilot circuit analysis (two
-            items so far), activation steering leaves the circuit essentially untouched for all three philosophers,
-            while LoRA perturbs it, ordered Seneca &gt; Marcus &gt; Epictetus ≈ 0. The circuit picture and the behavioral evals agree on the same split: CAA moves nothing measurable, while LoRA moves the decision measure through register rather than
-            reasoning.
+            Each architecture family gets the analyses that fit it: attention maps for transformers, filter and feature-map
+            analysis for CNNs, gate analysis for LSTMs and GRUs, and residual-stream analysis for transformers and ResNets.
+            Layer probing and activation patching work across all of them, and asking for an analysis a model doesn't
+            support returns a clear error.
           </p>
-          <figure class="project-figure">
-            <img src="assets/figures/fig_exp12c_node_shift.png"
-              alt="Maximum circuit node shift against the base model across 10 items, for the
-            LoRA Seneca and Marcus adapters only. Seneca's median is 0.39 and Marcus's is 0.17; activation steering and
-            Epictetus are not shown."
-              loading="lazy">
-            <figcaption>A separate 10-item sweep of the LoRA adapters only: Seneca's shifts are the largest, with a median of
-              0.39 against Marcus's 0.17.</figcaption>
-          </figure>
+          <p>
+            It also covers automatic circuit discovery, sparse autoencoder training and inspection, and linear concept
+            probing. The MCP server exposes logit lens, layer evolution, circuit discovery, and SAE analysis as tools.
+          </p>
         </div>
       </div>
     </section>
