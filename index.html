@@ -903,23 +903,19 @@
             LoRA fine-tuning, judge-free forced-choice evals, and circuit analysis.
           </p>
           <p>
-            Short version: activation steering (CAA) moved nothing measurable at the strength I tested, while LoRA
-            fine-tuning moved style, content, and decisions (style and content from a single judged eval). My first
-            measurement said otherwise: CAA appeared to shift the Stoic content and style of the model's answers. That
-            result was wrong. Because of a silent fallback in my own pipeline, steered text was sampled and cut to about
-            13 tokens while baselines were greedy at 100, so the judge was scoring the decoding difference, not the
-            steering. Under matched decoding, both effects disappear.
-          </p>
-          <p>
-            LoRA's decision effect isn't a uniform Stoic push. On the original 40 items, Seneca shifts the average choice, but a handful of items
-            carry it (25 of 40 move positive, p = 0.15), and a pre-registered test at n=100 shows that's lexical echo of
-            Senecan phrasing in the options, not reasoning. Marcus Aurelius moves only the 'accept what you can't control'
-            dilemmas and is flat on the ones that call for action. Epictetus shows no decision effect, but its corpus is
-            by far the smallest, so I treat it as underpowered rather than a true null. A pilot circuit analysis (one
-            item per stance) shows the same split: CAA leaves the circuit essentially unchanged, while LoRA changes it in
-            the same order as the decision shifts, with Seneca most and Epictetus near zero. The two methods also train
-            on different objectives, so method and objective are confounded; a non-philosophical control adapter moved −0.036
-            log-odds (n.s.).
+            My first measurement said activation steering (CAA) shifted the Stoic content and style of the model's
+            answers. That was wrong: a silent fallback in my pipeline meant steered text was sampled and cut to
+            about 13 tokens while baselines were greedy at 100, so the judge was scoring the decoding difference,
+            not the steering. Under matched decoding, CAA moves nothing measurable at the strength I tested. LoRA
+            fine-tuning does shift style, content (from a single judged eval), and the model's choices, but not as
+            Stoic reasoning. Seneca's decision shift on the original 40 items was carried by a handful of items, and
+            a pre-registered test at n=100 showed it was lexical echo of Senecan phrasing in the options. Marcus
+            Aurelius's shift doesn't hold up as an effect at n=100. Epictetus shows none, though its corpus is by
+            far the smallest. A pilot circuit analysis (one item per stance) shows the same split: CAA leaves the
+            circuit essentially unchanged, while LoRA changes it, most for Seneca and least for Epictetus. A
+            non-philosophical control adapter barely moved decisions (−0.036 log-odds, not significant), so the
+            shifts aren't just a side effect of fine-tuning. CAA and LoRA also train on different objectives, so
+            this comparison can't fully separate method from objective.
           </p>
           <figure class="project-figure">
             <img src="assets/figures/fig_three_depths.png"
