@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sebastian Villalobos — Mechanistic Interpretability &amp; AI Safety</title>
   <meta name="description"
-    content="Sebastian Villalobos — Data Science M.S. at Georgetown. Building interpretability tools and philosophical steering methods toward mechanistically grounded AI safety." />
+    content="Sebastian Villalobos — M.S. Data Science &amp; Analytics at Georgetown. Comparing how weight-space and activation-space interventions change LLM behavior, with a from-scratch interpretability toolkit." />
+  <meta property="og:title" content="Sebastian Villalobos — Mechanistic Interpretability &amp; AI Safety" />
+  <meta property="og:description"
+    content="Sebastian Villalobos — M.S. Data Science &amp; Analytics at Georgetown. Comparing how weight-space and activation-space interventions change LLM behavior, with a from-scratch interpretability toolkit." />
+  <meta property="og:image" content="https://sebastianvillalobosalva.github.io/me.jpg" />
+  <meta property="og:url" content="https://sebastianvillalobosalva.github.io/" />
+  <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -376,6 +382,14 @@
       font-weight: 800;
     }
 
+    .skills-line {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      max-width: 620px;
+      margin: 0 0 18px;
+    }
+
     .lede {
       font-family: 'Newsreader', Georgia, serif;
       font-size: clamp(0.9rem, 1.2vw, 0.98rem);
@@ -700,13 +714,17 @@
       }
     }
 
-    /* Publication */
+    /* Publications */
     .pub {
       background: var(--surface);
       border: 1px solid var(--line);
       border-left: 3px solid var(--accent);
       border-radius: 10px;
       padding: 20px 24px;
+    }
+
+    .pub+.pub {
+      margin-top: 14px;
     }
 
     .pub .title {
@@ -763,7 +781,7 @@
       <a href="#top">Intro</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
-      <a href="#publication">Publication</a>
+      <a href="#publication">Publications</a>
     </nav>
     <div class="side-foot">
       <div class="side-bottom">
@@ -793,6 +811,7 @@
           </div>
           <div class="intro-text">
             <h1>Sebastian Villalobos</h1>
+            <p class="skills-line">Python · PyTorch · Hugging Face · LoRA · SQL (Redshift, Snowflake) · dbt · MCP</p>
 
             <p class="lede">
               Hi, I'm Sebastian. I'm a Master's student at Georgetown building tools to look
@@ -811,10 +830,9 @@
             </p>
             <p class="lede">
               That question is the focus of my Master’s. I built ModelLens, an interpretability toolkit designed to work
-              across diverse architectures rather than just standard transformers. Currently, I'm using it to study
-              Stoic LLM Steering, a project where we guide a model's outputs toward Stoic philosophy and mechanistically
-              analyze how that steering alters the model's internal representations versus simply changing its outward
-              persona.
+              across diverse architectures rather than just standard transformers. Currently I'm using it to compare two
+              ways of installing a behavior in a model, activation steering and LoRA fine-tuning, and to check whether
+              each one changes the model's internals or just its outward persona. Stoic philosophy is the test behavior.
 
               If you want to talk about interpretability, alignment, or anything in between, send me a message at
               <a href="mailto:s.villalobos.alva@gmail.com">s.villalobos.alva@gmail.com</a>.
@@ -834,14 +852,14 @@
               control, temperance) as a primary test case, the broader goal is to evaluate if neural networks can
               represent structured moral reasoning, ranging from Kantian deontology (duty and universalizability) to
               Thomistic double-effect reasoning (intention and proportionality). To explore this, I built ModelLens to
-              look inside neural networks and developed Stoic LLM Steering to actively guide a model toward that
+              look inside neural networks and built a steering pipeline to actively guide a model toward that
               framework, using the former to inspect what the steering actually changes under the hood.
             </p>
             <p class="lede">
-              The honest answer so far is complicated. Under matched decoding, activation steering moves nothing
-              measurable at any of the three levels I test — style, content, or decision. Weight-level adaptation
-              (LoRA) is the only intervention that reaches decisions, and even then the effect differs by philosopher
-              rather than installing a uniform Stoic prior. That boundary, between changing a model's representations
+              The honest answer so far is complicated. Under matched decoding, activation steering at the strength I
+              tested moves nothing measurable at any of the three levels: style, content, or decision. On the original 40 items, weight-level adaptation (LoRA) is the only
+              intervention that moves the decision measure, but a pre-registered test at n=100 shows that movement tracks
+              Seneca's phrasing rather than the dilemma's content: lexical echo, not reasoning. That boundary, between changing a model's representations
               and changing what it does, is the most useful thing the project has produced. So far, the experiments
               I've run have been on 3B models. While this scale limits broader generalization claims, it has forced
               the evaluation to be far more precise, rigorous, and carefully isolated than it might have been otherwise.
@@ -861,13 +879,71 @@
           </div>
         </div>
 
+        <!-- Stoic LLM -->
+        <div class="project">
+          <div class="project-top">
+            <div>
+              <span class="date">Jul 2026</span>
+              <h3>Weight space vs. activation space</h3>
+              <p class="tagline">Do they install the same behavior?<br />Stoic philosophy is the test axis; sycophancy is
+                next.</p>
+            </div>
+            <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Stoic-Steering" target="_blank"
+              rel="noopener">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+              </svg>
+              <span>Repository</span> ↗
+            </a>
+          </div>
+          <p>
+            The core question: if you push a model toward Stoic philosophy, does that change what the model decides, or
+            just how it talks? I built a pipeline with the following to find out: contrastive pair generation,
+            activation steering (CAA),
+            LoRA fine-tuning, judge-free forced-choice evals, and circuit analysis.
+          </p>
+          <p>
+            Short version: at the strength I tested, activation steering moves nothing measurable, and LoRA moves
+            decisions through register rather than reasoning. The first result I obtained was that activation steering
+            appeared to change the style and content of the model's answers. I found that result was wrong: steered and
+            baseline generations were being decoded under different conditions, caused by a silent fallback in my own
+            pipeline. Under matched decoding across seeds, CAA showed no effect on style or content, and the judge-free
+            decision measure was flat throughout. On the original 40 items, LoRA fine-tuning is the only intervention
+            that moves that measure (CAA hasn't been run on the newer item sets), and a pilot circuit analysis shows the
+            same split: activation steering leaves the circuit essentially untouched, while LoRA perturbs it. One
+            caveat: the two methods also train on different objectives, so method and objective are confounded. A
+            non-philosophical control moved −0.036 log-odds (n.s.). Older LoRA adapters, trained before the corpus was
+            cleaned, also shifted judge-scored style and content; the clean adapters haven't been judge-scored.
+          </p>
+          <p>
+            The decision effects differ by philosopher. A pre-registered test at n=100 shows Seneca's movement is lexical
+            echo, not reasoning: idiom-worded items move +0.099 log-odds and plain-worded items move −0.083. Those 100
+            items include the 40 where the pattern first appeared; on the 60 new items alone, the idiom-vs-plain contrast
+            is +0.148 log-odds, p=0.117 (exploratory). Marcus Aurelius moved only the accepting dilemmas on the original
+            items, but doesn't count as an axis effect in the powered test; and Epictetus shows no effect, but its corpus
+            is by far the smallest, so I treat it as underpowered rather than a true null.
+          </p>
+          <figure class="project-figure">
+            <img src="assets/figures/fig_three_depths.png"
+              alt="CAA and LoRA effects on style, content, and decision for each
+            philosopher. CAA is flat at every level under matched decoding. LoRA moves style and content for all three
+            and decisions for Marcus and Seneca, with Epictetus null."
+              loading="lazy">
+            <figcaption>Under matched decoding, CAA's apparent style and content effects
+              collapse. The decision measure was logit-based and never affected. LoRA's style and content panels use older
+              adapters trained before the corpus was cleaned. The decision panel is the original 40-item result; for
+              Seneca, the powered test shows that movement is lexical echo, not reasoning.</figcaption>
+          </figure>
+        </div>
+
         <!-- ModelLens -->
         <div class="project">
           <div class="project-top">
             <div>
               <span class="date">Jun 2026</span>
               <h3>ModelLens</h3>
-              <p class="tagline">Same behavior, different circuits</p>
+              <p class="tagline">Same axis, different circuit effects</p>
             </div>
             <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/ModelLens" target="_blank"
               rel="noopener">
@@ -889,65 +965,19 @@
             attn = lens.attention_map(inputs)
             effects = lens.activation_patch(clean, corrupted) <span class="c"># causal intervention</span></div>
           <p>
-            I used it to compare two Stoic-steering methods (below) at the circuit level. Activation steering leaves the
-            circuit essentially untouched: near-identical topology for all three philosophers. LoRA rewires the model's
-            output layer. The circuit picture and the behavioral evals agree on the same split: CAA moves nothing
-            measurable, LoRA reaches decisions.
+            I used it to compare two Stoic-steering methods (above) at the circuit level. In a pilot circuit analysis (two
+            items so far), activation steering leaves the circuit essentially untouched for all three philosophers,
+            while LoRA perturbs it, ordered Seneca &gt; Marcus &gt; Epictetus ≈ 0. The circuit picture and the behavioral evals agree on the same split: CAA moves nothing measurable, while LoRA moves the decision measure through register rather than
+            reasoning.
           </p>
           <figure class="project-figure">
             <img src="assets/figures/fig_exp12c_node_shift.png"
-              alt="Maximum circuit node shift against the base model. Activation
-            steering sits near zero for all three philosophers; LoRA clears
-            the threshold, with Seneca highest."
+              alt="Maximum circuit node shift against the base model across 10 items, for the
+            LoRA Seneca and Marcus adapters only. Seneca's median is 0.39 and Marcus's is 0.17; activation steering and
+            Epictetus are not shown."
               loading="lazy">
-            <figcaption>Activation steering leaves the circuit essentially untouched.
-              LoRA shifts it, most strongly for Seneca.</figcaption>
-          </figure>
-        </div>
-
-        <!-- Stoic LLM -->
-        <div class="project">
-          <div class="project-top">
-            <div>
-              <span class="date">Jul 2026</span>
-              <h3>Stoic LLM Steering</h3>
-              <p class="tagline">What steering actually moves</p>
-            </div>
-            <a class="repo-btn" href="https://github.com/SebastianVillalobosAlva/Stoic-Steering" target="_blank"
-              rel="noopener">
-              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-              </svg>
-              <span>Repository</span> ↗
-            </a>
-          </div>
-          <p>
-            The core question: if you push a model toward Stoic philosophy, does that change what the model decides, or
-            just how it talks? I built a pipeline with the following to find out: contrastive pair generation,
-            activation steering (CAA),
-            LoRA fine-tuning, judge-free forced-choice evals, and circuit analysis.
-          </p>
-          <p>
-            Short version: style moves easily, content moves with clean data, and decisions mostly
-            don't. The first result I obtained was that activation steering appeared to change the model's ethical
-            decisions. I found that result was wrong: steered and baseline generations were being decoded under
-            different conditions, caused by a silent fallback in my own pipeline. Under matched decoding across seeds,
-            CAA showed no effect on decisions. LoRA fine-tuning is the only intervention that reaches the decision
-            layer, and circuit analysis shows it rewires the output layer where activation steering runs through a
-            single mid-layer bottleneck. Its behavioral effects differ by philosopher: Seneca shifts ethical decisions,
-            though I'm still testing whether that's driven by topic proximity or by lexical echo in the option wording;
-            Marcus Aurelius installs a passivity prior; and Epictetus, whose corpus is the smallest of the three, shows
-            no effect.
-          </p>
-          <figure class="project-figure">
-            <img src="assets/figures/fig_three_depths.png"
-              alt="Style, content, and decision effects before and after matched
-            decoding. CAA effects collapse to zero at every level; the
-            decision measure was flat throughout."
-              loading="lazy">
-            <figcaption>Under matched decoding, CAA's apparent style and content effects
-              collapse. The decision measure was logit-based and never affected.</figcaption>
+            <figcaption>A separate 10-item sweep of the LoRA adapters only: Seneca's shifts are the largest, with a median of
+              0.39 against Marcus's 0.17.</figcaption>
           </figure>
         </div>
       </div>
@@ -965,6 +995,20 @@
 
         <h3 class="subsection-title">Experience</h3>
         <div class="cv-grid">
+          <div class="entry">
+            <div>
+              <div class="when">Aug 2026 – Present</div>
+              <div class="where">Washington, DC</div>
+            </div>
+            <div>
+              <h3>Georgetown University, McDonough School of Business (Future of Work Initiative)</h3>
+              <div class="role">Research Assistant</div>
+              <ul>
+                <li>Researching LLM uncertainty quantification with Prof. Babak Zafari.</li>
+              </ul>
+            </div>
+          </div>
+
           <div class="entry">
             <div>
               <div class="when">Nov 2024 – Aug 2025</div>
@@ -1002,10 +1046,17 @@
                   processing.</li>
               </ul>
               <div class="sub-role">
-                <div class="role">Operations Data Analyst &amp; Specialist · Feb 2021 – Oct 2022</div>
+                <div class="role">Operations Data Analyst · Nov 2021 – Oct 2022</div>
                 <ul>
                   <li>Built a Logistic Regression model on 12+ months of operational data to predict batch acceptance,
                     improving approval rates by 20%.</li>
+                </ul>
+              </div>
+              <div class="sub-role">
+                <div class="role">Operations Data Specialist · Feb 2021 – Nov 2021</div>
+                <ul>
+                  <li>Ran day-to-day operations for data annotation projects, tracking annotator throughput and payroll
+                    with SQL and Python.</li>
                 </ul>
               </div>
             </div>
@@ -1024,8 +1075,9 @@
               <div class="role">M.S. in Data Science &amp; Analytics · GPA 4.0 / 4.0</div>
               <ul>
                 <li>Awarded a merit scholarship.</li>
-                <li>Teaching Assistant — Database Systems and SQL.</li>
-                <li>Teaching Assistant — AI Modeling.</li>
+                <li>Teaching Assistant for seven courses since Aug 2025, including Database Systems &amp; SQL, Machine
+                  Learning Foundations, Advanced Machine Learning &amp; AI, and AI Modeling in Practice.</li>
+                <li>Co-designed Applied AI Lab, a non-technical AI course for MBA students, with Prof. Babak Zafari.</li>
               </ul>
             </div>
           </div>
@@ -1047,13 +1099,21 @@
       </div>
     </section>
 
-    <!-- PUBLICATION -->
+    <!-- PUBLICATIONS -->
     <section id="publication">
       <div class="wrap">
         <div class="sec-head">
           <div>
-            <h2>Publication</h2>
+            <h2>Publications</h2>
           </div>
+        </div>
+        <div class="pub">
+          <div class="title">Global Security Blind Spots: Translation as a Safety Bypass in Low-Resource Languages</div>
+          <div class="venue">Jalil Alva, David Harper, Abigail E. Thornton, <strong>Rafael S. Villalobos Alva</strong>,
+            Leonardo Kenji Minemura Suazo, Konstantinos Karageorgos, Diego Velazquez, Sergio A. Serrano, Marvin Vargas
+            Flores, Aaron Schliem, Fernando F Migone (2026) · <em>NeurIPS 2026 Workshop on Foundations of
+              Language Model Security (FLMSec)</em> · <a href="https://openreview.net/forum?id=ljFgX6A8NL"
+              target="_blank" rel="noopener">Link ↗</a></div>
         </div>
         <div class="pub">
           <div class="title">Protein Science Meets Artificial Intelligence: A Systematic Review</div>
